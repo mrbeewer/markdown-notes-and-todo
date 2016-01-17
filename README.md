@@ -8,7 +8,7 @@ Web based markdown editor focused on note taking and tracking ToDo's
 
 ### Screenshots:
 <p align="center">
-  <img width="400px" src="https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/misc-files/UML-Markdown+Todo_all-one-page.pdf" alt="Planning"/>
+  <img width="400px" src="https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/misc-files/UML-Markdown+Todo.png" alt="Planning"/>
   <br>
   <!-- <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-secondaryRefinementWChoices.png" alt="moogl - Secondary Refinement With Choices View"/>
   <br>
