@@ -7,10 +7,10 @@ Web based markdown editor focused on note taking and tracking ToDo's
 
 
 ### Screenshots:
-<!-- <p align="center">
-  <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-home.png" alt="moogl - Home View"/>
+<p align="center">
+  <img width="400px" src="https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/misc-files/UML-Markdown+Todo_all-one-page.pdf" alt="Planning"/>
   <br>
-  <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-secondaryRefinementWChoices.png" alt="moogl - Secondary Refinement With Choices View"/>
+  <!-- <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-secondaryRefinementWChoices.png" alt="moogl - Secondary Refinement With Choices View"/>
   <br>
   <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-mapWPins.png"  alt="moogl - Map With Pins / Locations View"/>
   <br>
@@ -18,8 +18,8 @@ Web based markdown editor focused on note taking and tracking ToDo's
   <br>
   <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-LocationDetails.png"  alt="moogl - Location Detail View"/>
   <br>
-  <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-BurgerDetails.png"  alt="moogl - Burger Detail View"/>
-</p> -->
+  <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-BurgerDetails.png"  alt="moogl - Burger Detail View"/> -->
+</p>
 
 ### Technology:
 <!-- * HTML, CSS, JavaScript, jQuery
@@ -35,7 +35,8 @@ Web based markdown editor focused on note taking and tracking ToDo's
 
 ### Links:
 * Use Case Diagram, Activity Diagram, User Stories, Wireframes, ERD
-  * [Image](https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/misc-files/UML-Markdown+Todo.pdf)
+  * [Image](https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/misc-files/UML-Markdown+Todo_all-one-page.pdf)
+  * [PDF](https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/misc-files/UML-Markdown+Todo.pdf)
   * [Draw.io](https://drive.google.com/file/d/0B1PeprrWaiPLcEZVa0NiUTBEa1E/view?usp=sharing)
 * [SCRUM Board](https://trello.com/b/rvAVYeyS)
 * Live App - [SOON]()
@@ -45,8 +46,15 @@ Web based markdown editor focused on note taking and tracking ToDo's
     * With more time available on this project, more time was spent on the planning phase.
     * Used Trello for basic SCRUM management as well as keeping track of resources and things that needed to be researched further.
     * Used Draw.io to put together Use Case Diagrams, UML Diagrams, User Stories, and Wireframing.
-  * Initial Development
-    * SOON
+  * Project Outline
+    * MVP - Web application where a user can login / register, use Markdown make documents (with code snippets) and create / manage a ToDo list.
+    * After logging into the system, the user will be able to use Markdown syntax to make documents as they see fit. This project initially is geared towards notes / project management for a programmer / developer. As such, code blocks and syntax highlighting is important.
+    * In order to keep the user within the app and to facilitate task management, the user will be able to easily add and view ToDo tasks. These tasks will also have an option for tagging for increased organization.
+    * Planned Technologies:
+      * ASP.NET for server side
+      * SQL for database (unsure at the moment)
+      * HTML / CSS / JavaScript for client side
+      * *Will take advantage of available Markdown converters and syntax highlighting as the intention of this project is not to develope those from scratch but show the ability to incorporate previously developed technology.*
 
 
 ### Installation:
