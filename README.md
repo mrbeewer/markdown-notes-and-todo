@@ -35,7 +35,7 @@ Web based markdown editor focused on note taking and tracking ToDo's
 
 ### Links:
 * Use Case Diagram, Activity Diagram, User Stories, Wireframes, ERD
-  * [Image](https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/misc-files/UML-Markdown+Todo.svg)
+  * [Image](https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/misc-files/UML-Markdown+Todo.pdf)
   * [Draw.io](https://drive.google.com/file/d/0B1PeprrWaiPLcEZVa0NiUTBEa1E/view?usp=sharing)
 * [SCRUM Board](https://trello.com/b/rvAVYeyS)
 * Live App - [SOON]()
