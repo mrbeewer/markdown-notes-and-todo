@@ -154,6 +154,9 @@ Web based markdown editor focused on note taking and tracking ToDo's
 
 
 ### Change Log:
+  * 17JAN2016
+    * Readme updates (links, typos)
+    * Updated planning images (need a better name for that collection)
   * 16JAN2016
     * Repository Created
     * Added Links (Draw.io planning, Trello board) to README
