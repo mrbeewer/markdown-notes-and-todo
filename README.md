@@ -1,7 +1,7 @@
 # Markdown Notes & Todo
 Web based markdown editor focused on note taking and tracking ToDo's
 
-#### [Click Me! (SOON)]()
+#### [Click Me! (SOON)](http://markdownmanager.azurewebsites.net/)
 <br>
 <br>
 
@@ -39,7 +39,7 @@ Web based markdown editor focused on note taking and tracking ToDo's
   * [PDF](https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/misc-files/UML-Markdown+Todo.pdf)
   * [Draw.io](https://drive.google.com/file/d/0B1PeprrWaiPLcEZVa0NiUTBEa1E/view?usp=sharing)
 * [SCRUM Board](https://trello.com/b/rvAVYeyS)
-* Live App - [SOON]()
+* Live App - [SOON](http://markdownmanager.azurewebsites.net/)
 
 ### Approach:
   * Planning Phase
