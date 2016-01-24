@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+
 namespace ContactManager.Models
 {
     public class Contact
