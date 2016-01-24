@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System.Web.Services;
 using System.Data.SqlClient;
+using PagedList;
 
 namespace MarkdownManager.Controllers
 {
@@ -20,8 +21,6 @@ namespace MarkdownManager.Controllers
     [Authorize]
     public class ToDoController : Controller
     {
-
-        //private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationDbContext db;
         private UserManager<MyUser> manager;
 
@@ -31,81 +30,61 @@ namespace MarkdownManager.Controllers
             manager = new UserManager<MyUser>(new UserStore<MyUser>(db));
         }
 
-        [WebMethod]
-        public static void UpdateDb(int eid)
-        {
-            if (eid != null)
-            {
-                try
-                {
-                    string data = string.Empty;
-                    var con = new SqlConnection();
-                    // Chenge Staus For check  
-                    var q = "Select IsDone from ToDoes Where id='" + eid + "'";
-                    var command = new SqlCommand(q, con);
-                    con.Open();
-                    SqlDataReader readData = command.ExecuteReader();
-                    while (readData.Read())
-                    {
-                        data = readData["status"].ToString();
-                        con.Close();
-                        if (data == "False")
-                        {
-                            using (var con2 = new SqlConnection())
-                            {
-                                var query = "update ToDoes set IsDone='True' where id='" + eid + "'";
-                                con2.Open();
-                                var cmd = new SqlCommand(query, con2);
-                                cmd.ExecuteNonQuery();
-                                con2.Close();
-                            }
-                        }
-                        else
-                        {
-                            using (var con1 = new SqlConnection())
-                            {
-                                var query = "update ToDoes set IsDone='False' where id='" + eid + "'";
-                                con1.Open();
-                                var cmd = new SqlCommand(query, con1);
-                                cmd.ExecuteNonQuery();
-                                con1.Close();
-                            }
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                }
-            }
-        }
 
-        //protected UserManager<ApplicationUser> UserManager { get; set; }
-        //private UserManager<MyUser> manager;
-        //manager = new UserManager<MyUser>(new UserStore<MyUser>(db));
-        //this.ApplicationDbContext = new ApplicationDbContext();
-        //UserManager  = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-        // ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
 
         // GET: ToDo
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            //var user = UserManager.FindById(User.Identity.GetUserId());
-            //var user1 = 
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.DescriptionSortParam = String.IsNullOrEmpty(sortOrder) ? "description_desc" : "";
+            ViewBag.IsDoneSortParam = String.IsNullOrEmpty(sortOrder) ? "isDone_asc" : "";
+            ViewBag.TagSortParam = String.IsNullOrEmpty(sortOrder) ? "tag_asc" : "";
 
-            //var currentUser = db.Users.Where(cUser => cUser.UserName == User.Identity.Name).FirstOrDefault();
-            //var currentUser = manager.FindById(User.Identity.GetUserId());
+            // Pagination and persistent filtering
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+
+            var todoes = from t in db.ToDoes select t;
             string currentUser = User.Identity.GetUserId();
-            var items = db.ToDoes.ToList().Where(todo => todo.ApplicationUserID == currentUser);
-            
-           // var itemsList = currentUser.ToDo;
-            //if (items != null)
-            //{
-            //    ViewData["TodoListItems"] = items;
-            //}
-            
-            return View(db.ToDoes.ToList().Where(todo => todo.ApplicationUserID == currentUser));
-            //return View();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                todoes = todoes.Where(todo => todo.ApplicationUserID == currentUser);
+                todoes = todoes.Where(todo => todo.Tag.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "description_desc":
+                    todoes = todoes.Where(todo => todo.ApplicationUserID == currentUser).OrderByDescending(t => t.Description);
+                    break;
+                case "isDone_asc":
+                    todoes = todoes.Where(todo => todo.ApplicationUserID == currentUser).OrderBy(t => t.IsDone ? 0 : 1);
+                    break;
+                case "tag_asc":
+                    todoes = todoes.Where(todo => todo.ApplicationUserID == currentUser).OrderBy(t => t.Tag);
+                    break;
+                default:
+                    todoes = todoes.Where(todo => todo.ApplicationUserID == currentUser).OrderByDescending(t => t.IsDone ? 0 : 1);
+                    break;
+            }
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(todoes.ToPagedList(pageNumber, pageSize));
         }
+
+
+
 
         // GET: ToDo/Details/5
         public ActionResult Details(int? id)
@@ -122,6 +101,9 @@ namespace MarkdownManager.Controllers
             return View(toDo);
         }
 
+
+
+
         // GET: ToDo/Create
         public ActionResult Create()
         {
@@ -135,10 +117,6 @@ namespace MarkdownManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Description,IsDone,Tag")] ToDo toDo)
         {
-            //var currentUser = db.Users.Where(cUser => cUser.UserName == User.Identity.Name).FirstOrDefault();
-            //var user = user;
-            //ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            //var currentUser = manager.FindById(User.Identity.GetUserId());
             string currentUser = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
@@ -150,6 +128,10 @@ namespace MarkdownManager.Controllers
 
             return View(toDo);
         }
+
+
+
+
 
         // GET: ToDo/Edit/5
         public ActionResult Edit(int? id)
@@ -166,11 +148,14 @@ namespace MarkdownManager.Controllers
             return View(toDo);
         }
 
+
+
+
         // POST: ToDo/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Description,IsDone,Tag")] ToDo toDo)
         {
             string currentUser = User.Identity.GetUserId();
@@ -202,6 +187,9 @@ namespace MarkdownManager.Controllers
             }
             return View(toDo);
         }
+
+
+
 
         // POST: ToDo/Delete/5
         [HttpPost, ActionName("Delete")]

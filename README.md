@@ -59,7 +59,8 @@ Web based markdown editor focused on note taking and tracking ToDo's
     * With ASP.NET / C# being a new environment and language for this project, three to four days were spend purely working through tutorials and reading through digital resources to get up to speed.
     * With enough knowledge to be dangerous, I transitioned to getting a base app together to build from using these basics. As I continue to enhance the app, more resources will be collected to answer the more specific questions that arise.
     * Before working together the models and controllers, focus was turned to defining a preliminary database structure to achieve the desired result.
-    *
+    * Due to simplicity and similarity to available tutorials / guides, the ToDo portion was tackled first. Configuring the relational piece of the tables proved to difficult, with out-dated tutorials and inconsistent information. Once the ToDo items were tied to their user, some bonus features such as pagination, filtering, sorting were added.
+
 
 ### Installation:
 <!-- **Install on your local system**
@@ -158,6 +159,8 @@ Web based markdown editor focused on note taking and tracking ToDo's
 
 
 ### Change Log:
+  * 24JAN2016
+	* Updated ToDo module - added ability to filter, search, and display with multiple pages
   * 23JAN2016
     * Added TODO Model/Controller/CRUD
     * Time spent learning how to update database on 'checkbox' click rather than a submit button

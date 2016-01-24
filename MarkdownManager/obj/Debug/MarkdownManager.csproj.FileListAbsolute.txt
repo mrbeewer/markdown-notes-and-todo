@@ -225,3 +225,8 @@ C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\obj\De
 C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\obj\Debug\MarkdownManager.csproj.GenerateResource.Cache
 C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\obj\Debug\MarkdownManager.dll
 C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\obj\Debug\MarkdownManager.pdb
+C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\obj\Debug\MarkdownManager.csprojResolveAssemblyReference.cache
+C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\bin\PagedList.dll
+C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\bin\PagedList.Mvc.dll
+C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\bin\PagedList.xml
+C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\bin\PagedList.Mvc.xml
