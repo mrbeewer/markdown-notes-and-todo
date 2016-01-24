@@ -31,5 +31,7 @@ namespace MarkdownManager.Models
         }
 
         public System.Data.Entity.DbSet<ContactManager.Models.Contact> Contacts { get; set; }
+
+        public System.Data.Entity.DbSet<MarkdownManager.Models.ToDo> ToDoes { get; set; }
     }
 }
