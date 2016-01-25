@@ -35,5 +35,7 @@ namespace MarkdownManager.Models
         public System.Data.Entity.DbSet<MarkdownManager.Models.ToDo> ToDoes { get; set; }
 
         public System.Data.Entity.DbSet<MarkdownManager.Models.Document> Documents { get; set; }
+
+        public System.Data.Entity.DbSet<MarkdownManager.Models.MyUser> MyUsers { get; set; }
     }
 }
