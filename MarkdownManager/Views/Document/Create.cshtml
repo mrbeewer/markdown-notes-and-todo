@@ -18,8 +18,6 @@
     <script src="https://cdn.jsdelivr.net/highlight.js/8.4.0/highlight.min.js"></script>
     <link rel="stylesheet" href="~/Content/Highlight/solarized_dark.css">
     <script src="//cdn.jsdelivr.net/highlight.js/9.1.0/highlight.min.js"></script>
-    @*<script src="~/Scripts/Highlight/highlight.pack.js"></script>*@
-    @*<script>hljs.initHighlightingOnLoad();</script>*@
 
     <!-- Remarkable Markdown Conversion -->
     <script src="~/Scripts/remarkable.js"></script>
@@ -30,6 +28,7 @@
 
 
     <h2>Create New Note</h2>
+    <h6><em>Markdown Conversion Powered By <a href="https://github.com/jonschlinkert/remarkable">Jon Schlinkert - Remarkable</a></em></h6>
 
 
     @using (Html.BeginForm())
@@ -62,7 +61,7 @@
                             <input id="markdown-view" type="checkbox" checked data-toggle="toggle">Markdown View
                         </label>
                         <label class="checkbox-inline">
-                            <input id="html-view" type="checkbox" data-toggle="toggle">HTML View
+                            <input id="html-view" type="checkbox" checked data-toggle="toggle">HTML View
                         </label>
                     </div>
                 </div>
@@ -70,14 +69,14 @@
 
             <div class="container full-height form-control">
                 <div class="row full-height">
-                    <div class="col-md-6 full-height">
+                    <div id="markdown-input"class="col-md-6 full-height">
                         <div id="markdown-buttons" class="demo-control"><a href="#" class="source-clear">clear</a><a id="permalink" href="./" title="Share this snippet as link"><strong>permalink</strong></a></div>
                         @Html.TextAreaFor(model => model.Text, new { @id = "markdown-text", @class = "source full-height form-control" })
                         @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
                     </div>
                     <!-- output panel -->
                     <section id="html-output" class="col-md-6 full-height">
-                        <div class="demo-control"><a href="#" data-result-as="html">html</a><a href="#" data-result-as="src">source</a></div>
+                        <div id="html-buttons" class="demo-control"><a href="#" data-result-as="html">html</a><a href="#" data-result-as="src">source</a></div>
                         <div class="result-html full-height"></div>
                         <pre class="result-src full-height"><code class="result-src-content full-height"></code></pre>
                         <pre class="result-debug full-height"><code class="result-debug-content full-height"></code></pre>
@@ -89,70 +88,12 @@
 
 
 
-
-
-
-
-
-
-
-    <div class="container">
-
-        <!-- maybe these buttons can go into a settings pane? -->
-        <div class="form-inline demo-options">
-            <div class="checkbox not-strict">
-                <label title="enable html tags in source text" class="_tip">
-                    <input id="html" type="checkbox"> html
-                </label>
-            </div>
-            <div class="checkbox not-strict">
-                <label title="produce xtml output (add / to single tags (&lt;br /&gt; instead of &lt;br&gt;)" class="_tip">
-                    <input id="xhtmlOut" type="checkbox"> xhtmlOut
-                </label>
-            </div>
-            <div class="checkbox not-strict">
-                <label title="newlines in paragraphs are rendered as &lt;br&gt;" class="_tip">
-                    <input id="breaks" type="checkbox"> breaks
-                </label>
-            </div>
-            <div class="checkbox not-strict">
-                <label title="autoconvert link-like texts to links" class="_tip">
-                    <input id="linkify" type="checkbox"> linkify
-                </label>
-            </div>
-            <div class="checkbox not-strict">
-                <label title="do typographyc replacements, (c) -&gt; © and so on" class="_tip">
-                    <input id="typographer" type="checkbox"> typographer
-                </label>
-            </div>
-            <div class="checkbox not-strict">
-                <label title="enable output highlight for fenced blocks" class="_tip">
-                    <input id="_highlight" type="checkbox"> highlight
-                </label>
-            </div>
-            <div class="form-group not-strict">
-                <input id="langPrefix" type="input" placeholder="language prefix" title="css class language prefix for fenced code blocks" class="form-control _tip">
-            </div>
-            <div class="checkbox">
-                <label title="force strict CommonMark mode - output will be equal to reference parser" class="_tip">
-                    <input id="_strict" type="checkbox"> CommonMark strict
-                </label>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
     <script>
+        var elMarkdownInput = $('#markdown-input');
         var elMarkdown = $('#markdown-view');
-        var elMarkdownText = $('#markdown-text');
-        var elMarkdownButtons = $('#markdown-buttons');
-        var elMarkdownLabel = $('#markdown-label');
 
+        var elHtml = $('#html-view');
         var elHtmlOutput = $('#html-output');
-        var elHtmlResult = $('.result-html');
 
         elMarkdown.change(function () {
             var status = elMarkdown.prop("checked");
@@ -161,24 +102,37 @@
 
             if (!status) {
                 // hide the markdown view, label, buttons
-                elMarkdownText.css("display", "none");
-                elMarkdownButtons.css("display", "none");
-                elMarkdownLabel.css("display", "none");
+                elMarkdownInput.css("display", "none");
                 // expand the html view
-                elHtmlOutput.toggleClass("col-md-5", false);
+                elHtmlOutput.toggleClass("col-md-6", false);
                 elHtmlOutput.toggleClass("col-md-12", true);
-                elHtmlResult.css("width", "100%");
-
             } else {
                 // show the markdown view, label, buttons
-                elMarkdownText.css("display", "block");
-                elMarkdownButtons.css("display", "block");
-                elMarkdownLabel.css("display", "block");
+                elMarkdownInput.css("display", "block");
                 // shrink the html view
                 elHtmlOutput.toggleClass("col-md-12", false);
-                elHtmlOutput.toggleClass("col-md-5", true);
+                elHtmlOutput.toggleClass("col-md-6", true);
             }
+        });
 
+        elHtml.change(function () {
+            var status = elHtml.prop("checked");
+            //alert("clicked");
+            console.log(status);
+
+            if (!status) {
+                // hide the html section
+                elHtmlOutput.css("display", "none");
+                // expand the markdown section
+                elMarkdownInput.toggleClass("col-md-6", false);
+                elMarkdownInput.toggleClass("col-md-12", true);
+            } else {
+                // show the html section
+                elHtmlOutput.css("display", "block");
+                // shrink the markdown section
+                elMarkdownInput.toggleClass("col-md-12", false);
+                elMarkdownInput.toggleClass("col-md-6", true);
+            }
         });
 
 

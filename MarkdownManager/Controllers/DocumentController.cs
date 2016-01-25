@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MarkdownManager.Models;
+using PagedList;
+using Microsoft.AspNet.Identity;
 
 namespace MarkdownManager.Controllers
 {
@@ -15,9 +17,49 @@ namespace MarkdownManager.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Document
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(db.Documents.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.ParentFolderSortParam = String.IsNullOrEmpty(sortOrder) ? "parentfolder_desc" : "";
+
+            // Pagination and persistent filtering
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+
+            var documents = from d in db.Documents select d;
+            string currentUser = User.Identity.GetUserId();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                documents = documents.Where(doc => doc.ApplicationUserID == currentUser);
+                documents = documents.Where(doc => doc.ParentFolder.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    documents = documents.Where(doc => doc.ApplicationUserID == currentUser).OrderByDescending(d => d.Name);
+                    break;
+                case "parentfolder_desc":
+                    documents = documents.Where(doc => doc.ApplicationUserID == currentUser).OrderByDescending(d => d.ParentFolder);
+                    break;
+                default:
+                    documents = documents.Where(doc => doc.ApplicationUserID == currentUser).OrderBy(d => d.ParentFolder);
+                    break;
+            }
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(documents.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Document/Details/5
@@ -44,15 +86,15 @@ namespace MarkdownManager.Controllers
         // POST: Document/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        
-        //[ValidateAntiForgeryToken]
-        [ValidateInput(false)]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Text,ParentFolder")] Document document)
         {
-            document.Text = Server.HtmlDecode(document.Text);
+            //document.Text = Server.HtmlDecode(document.Text);
+            string currentUser = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
+                document.ApplicationUserID = currentUser;
                 db.Documents.Add(document);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -83,9 +125,11 @@ namespace MarkdownManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Text,ParentFolder")] Document document)
         {
+            string currentUser = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
                 db.Entry(document).State = EntityState.Modified;
+                document.ApplicationUserID = currentUser;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

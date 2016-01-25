@@ -1,4 +1,7 @@
-﻿@model IEnumerable<MarkdownManager.Models.Document>
+﻿@model PagedList.IPagedList<MarkdownManager.Models.Document>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
 
 @{
     ViewBag.Title = "Notes:";
@@ -7,15 +10,24 @@
 <h2>Notes:</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
 </p>
+
+@using (Html.BeginForm("Index", "Document", FormMethod.Get))
+{
+    <p>
+        Find by ParentFolder: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ParentFolder)
+            @Html.ActionLink("ParentFolder", "Index", new { sortOrder = ViewBag.ParentFolderSortParam, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -37,3 +49,9 @@
 }
 
 </table>
+
+<br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

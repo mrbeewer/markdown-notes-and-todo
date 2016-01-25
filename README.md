@@ -162,6 +162,7 @@ Web based markdown editor focused on note taking and tracking ToDo's
 ### Change Log:
   * 24JAN2016
 	* Updated ToDo module - added ability to filter, search, and display with multiple pages
+	* Added Notes module - able to CRUD notes, markdown conversion is functional, filter, search, pagination
   * 23JAN2016
     * Added TODO Model/Controller/CRUD
     * Time spent learning how to update database on 'checkbox' click rather than a submit button

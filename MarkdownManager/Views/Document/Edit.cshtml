@@ -4,55 +4,147 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/lodash/2.4.1/lodash.js"></script>
+
+<!-- Bootstrap Toggle -->
+<link rel="stylesheet" href="~/Content/bootstrap-toggle.less">
+<script src="~/Scripts/bootstrap-toggle.js"></script>
+
+<!-- syntax highlighting CSS -->
+<script src="https://cdn.jsdelivr.net/highlight.js/8.4.0/highlight.min.js"></script>
+<link rel="stylesheet" href="~/Content/Highlight/solarized_dark.css">
+<script src="//cdn.jsdelivr.net/highlight.js/9.1.0/highlight.min.js"></script>
+
+<!-- Remarkable Markdown Conversion -->
+<script src="~/Scripts/remarkable.js"></script>
+<link rel="stylesheet" href="~/Content/remarkable.css">
+<script src="~/Scripts/remarkable-index.js"></script>
+
+
+
+
+<h2>Edit Note</h2>
+<h6><em>Markdown Conversion Powered By <a href="https://github.com/jonschlinkert/remarkable">Jon Schlinkert - Remarkable</a></em></h6>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Document</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            <div class="row">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.ParentFolder, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.ParentFolder, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ParentFolder, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-1">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+                <div class="col-md-1">
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+                </div>
+                <div class=" pull-right">
+                    <label class="checkbox-inline">
+                        <input id="markdown-view" type="checkbox" checked data-toggle="toggle">Markdown View
+                    </label>
+                    <label class="checkbox-inline">
+                        <input id="html-view" type="checkbox" checked data-toggle="toggle">HTML View
+                    </label>
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ParentFolder, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ParentFolder, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ParentFolder, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+        <div class="container full-height form-control">
+            <div class="row full-height">
+                <div id="markdown-input" class="col-md-6 full-height">
+                    <div id="markdown-buttons" class="demo-control"><a href="#" class="source-clear">clear</a><a id="permalink" href="./" title="Share this snippet as link"><strong>permalink</strong></a></div>
+                    @Html.TextAreaFor(model => model.Text, new { @id = "markdown-text", @class = "source full-height form-control" })
+                    @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                </div>
+                <!-- output panel -->
+                <section id="html-output" class="col-md-6 full-height">
+                    <div id="html-buttons" class="demo-control"><a href="#" data-result-as="html">html</a><a href="#" data-result-as="src">source</a></div>
+                    <div class="result-html full-height"></div>
+                    <pre class="result-src full-height"><code class="result-src-content full-height"></code></pre>
+                    <pre class="result-debug full-height"><code class="result-debug-content full-height"></code></pre>
+                </section>
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
+
+<script>
+        var elMarkdownInput = $('#markdown-input');
+        var elMarkdown = $('#markdown-view');
+
+        var elHtml = $('#html-view');
+        var elHtmlOutput = $('#html-output');
+
+        elMarkdown.change(function () {
+            var status = elMarkdown.prop("checked");
+            //alert("clicked");
+            console.log(status);
+
+            if (!status) {
+                // hide the markdown view, label, buttons
+                elMarkdownInput.css("display", "none");
+                // expand the html view
+                elHtmlOutput.toggleClass("col-md-6", false);
+                elHtmlOutput.toggleClass("col-md-12", true);
+            } else {
+                // show the markdown view, label, buttons
+                elMarkdownInput.css("display", "block");
+                // shrink the html view
+                elHtmlOutput.toggleClass("col-md-12", false);
+                elHtmlOutput.toggleClass("col-md-6", true);
+            }
+        });
+
+        elHtml.change(function () {
+            var status = elHtml.prop("checked");
+            //alert("clicked");
+            console.log(status);
+
+            if (!status) {
+                // hide the html section
+                elHtmlOutput.css("display", "none");
+                // expand the markdown section
+                elMarkdownInput.toggleClass("col-md-6", false);
+                elMarkdownInput.toggleClass("col-md-12", true);
+            } else {
+                // show the html section
+                elHtmlOutput.css("display", "block");
+                // shrink the markdown section
+                elMarkdownInput.toggleClass("col-md-12", false);
+                elMarkdownInput.toggleClass("col-md-6", true);
+            }
+        });
+
+
+</script>
+
+
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
 }
