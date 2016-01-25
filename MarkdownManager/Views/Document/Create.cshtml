@@ -1,0 +1,194 @@
+﻿@model MarkdownManager.Models.Document
+
+    @{
+        ViewBag.Title = "Create";
+    }
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/lodash/2.4.1/lodash.js"></script>
+
+    <!-- Bootstrap Toggle -->
+    <link rel="stylesheet" href="~/Content/bootstrap-toggle.less">
+    <script src="~/Scripts/bootstrap-toggle.js"></script>
+
+    <!-- syntax highlighting CSS -->
+    <script src="https://cdn.jsdelivr.net/highlight.js/8.4.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="~/Content/Highlight/solarized_dark.css">
+    <script src="//cdn.jsdelivr.net/highlight.js/9.1.0/highlight.min.js"></script>
+    @*<script src="~/Scripts/Highlight/highlight.pack.js"></script>*@
+    @*<script>hljs.initHighlightingOnLoad();</script>*@
+
+    <!-- Remarkable Markdown Conversion -->
+    <script src="~/Scripts/remarkable.js"></script>
+    <link rel="stylesheet" href="~/Content/remarkable.css">
+    <script src="~/Scripts/remarkable-index.js"></script>
+
+
+
+
+    <h2>Create New Note</h2>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="row">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.ParentFolder, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.ParentFolder, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ParentFolder, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-1">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                    <div class="col-md-1">
+                        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+                    </div>
+                    <div class=" pull-right">
+                        <label class="checkbox-inline">
+                            <input id="markdown-view" type="checkbox" checked data-toggle="toggle">Markdown View
+                        </label>
+                        <label class="checkbox-inline">
+                            <input id="html-view" type="checkbox" data-toggle="toggle">HTML View
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container full-height form-control">
+                <div class="row full-height">
+                    <div class="col-md-6 full-height">
+                        <div id="markdown-buttons" class="demo-control"><a href="#" class="source-clear">clear</a><a id="permalink" href="./" title="Share this snippet as link"><strong>permalink</strong></a></div>
+                        @Html.TextAreaFor(model => model.Text, new { @id = "markdown-text", @class = "source full-height form-control" })
+                        @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                    </div>
+                    <!-- output panel -->
+                    <section id="html-output" class="col-md-6 full-height">
+                        <div class="demo-control"><a href="#" data-result-as="html">html</a><a href="#" data-result-as="src">source</a></div>
+                        <div class="result-html full-height"></div>
+                        <pre class="result-src full-height"><code class="result-src-content full-height"></code></pre>
+                        <pre class="result-debug full-height"><code class="result-debug-content full-height"></code></pre>
+                    </section>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+
+
+
+
+
+
+
+    <div class="container">
+
+        <!-- maybe these buttons can go into a settings pane? -->
+        <div class="form-inline demo-options">
+            <div class="checkbox not-strict">
+                <label title="enable html tags in source text" class="_tip">
+                    <input id="html" type="checkbox"> html
+                </label>
+            </div>
+            <div class="checkbox not-strict">
+                <label title="produce xtml output (add / to single tags (&lt;br /&gt; instead of &lt;br&gt;)" class="_tip">
+                    <input id="xhtmlOut" type="checkbox"> xhtmlOut
+                </label>
+            </div>
+            <div class="checkbox not-strict">
+                <label title="newlines in paragraphs are rendered as &lt;br&gt;" class="_tip">
+                    <input id="breaks" type="checkbox"> breaks
+                </label>
+            </div>
+            <div class="checkbox not-strict">
+                <label title="autoconvert link-like texts to links" class="_tip">
+                    <input id="linkify" type="checkbox"> linkify
+                </label>
+            </div>
+            <div class="checkbox not-strict">
+                <label title="do typographyc replacements, (c) -&gt; © and so on" class="_tip">
+                    <input id="typographer" type="checkbox"> typographer
+                </label>
+            </div>
+            <div class="checkbox not-strict">
+                <label title="enable output highlight for fenced blocks" class="_tip">
+                    <input id="_highlight" type="checkbox"> highlight
+                </label>
+            </div>
+            <div class="form-group not-strict">
+                <input id="langPrefix" type="input" placeholder="language prefix" title="css class language prefix for fenced code blocks" class="form-control _tip">
+            </div>
+            <div class="checkbox">
+                <label title="force strict CommonMark mode - output will be equal to reference parser" class="_tip">
+                    <input id="_strict" type="checkbox"> CommonMark strict
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+        var elMarkdown = $('#markdown-view');
+        var elMarkdownText = $('#markdown-text');
+        var elMarkdownButtons = $('#markdown-buttons');
+        var elMarkdownLabel = $('#markdown-label');
+
+        var elHtmlOutput = $('#html-output');
+        var elHtmlResult = $('.result-html');
+
+        elMarkdown.change(function () {
+            var status = elMarkdown.prop("checked");
+            //alert("clicked");
+            console.log(status);
+
+            if (!status) {
+                // hide the markdown view, label, buttons
+                elMarkdownText.css("display", "none");
+                elMarkdownButtons.css("display", "none");
+                elMarkdownLabel.css("display", "none");
+                // expand the html view
+                elHtmlOutput.toggleClass("col-md-5", false);
+                elHtmlOutput.toggleClass("col-md-12", true);
+                elHtmlResult.css("width", "100%");
+
+            } else {
+                // show the markdown view, label, buttons
+                elMarkdownText.css("display", "block");
+                elMarkdownButtons.css("display", "block");
+                elMarkdownLabel.css("display", "block");
+                // shrink the html view
+                elHtmlOutput.toggleClass("col-md-12", false);
+                elHtmlOutput.toggleClass("col-md-5", true);
+            }
+
+        });
+
+
+    </script>
+
+
+
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/bootstrap")
+    }

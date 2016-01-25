@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.checkbox-inline {
+    padding-top: 0px !important;
+    width: auto !important;
+}
+

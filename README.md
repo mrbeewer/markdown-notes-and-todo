@@ -32,6 +32,7 @@ Web based markdown editor focused on note taking and tracking ToDo's
 * [JSON Generator](http://www.json-generator.com/) - Database of fake restaurants -->
 * [Draw.io](http://draw.io) - Wireframes and ERD
 * [Trello](https://trello.com) - SCRUM Board
+* [Bootstrap Toggle](http://www.bootstraptoggle.com/)
 
 ### Links:
 * Use Case Diagram, Activity Diagram, User Stories, Wireframes, ERD
