@@ -2,6 +2,7 @@
 Web based markdown editor focused on note taking and tracking ToDo's
 
 #### [Click Me! (SOON)](http://markdownmanager.azurewebsites.net/)
+###### Test with --> username: *fake@fake.com*, password: *P_assw0rd1*
 <br>
 <br>
 
@@ -49,19 +50,33 @@ Web based markdown editor focused on note taking and tracking ToDo's
     * Used Draw.io to put together Use Case Diagrams, UML Diagrams, User Stories, and Wireframing.
   * Project Outline
     * MVP - Web application where a user can login / register, use Markdown make documents (with code snippets) and create / manage a ToDo list.
-    * After logging into the system, the user will be able to use Markdown syntax to make documents as they see fit. This project initially is geared towards notes / project management for a programmer / developer. As such, code blocks and syntax highlighting is important.
-    * In order to keep the user within the app and to facilitate task management, the user will be able to easily add and view ToDo tasks. These tasks will also have an option for tagging for increased organization.
+    * After logging into the system, the user will be able to use Markdown syntax to make documents as they see fit. This project initially is 
+	geared towards notes / project management for a programmer / developer. As such, code blocks and syntax highlighting is important.
+    * In order to keep the user within the app and to facilitate task management, the user will be able to easily add and view ToDo tasks. 
+	These tasks will also have an option for tagging for increased organization.
     * Planned Technologies:
       * ASP.NET for server side
       * SQL for database (unsure at the moment)
       * HTML / CSS / JavaScript for client side
-      * *Will take advantage of available Markdown converters and syntax highlighting as the intention of this project is not to develope those from scratch but show the ability to incorporate previously developed technology.*
+      * *Will take advantage of available Markdown converters and syntax highlighting as the intention of this project is not to develope those 
+	  from scratch but show the ability to incorporate previously developed technology.*
   * Development Phase
-    * With ASP.NET / C# being a new environment and language for this project, three to four days were spend purely working through tutorials and reading through digital resources to get up to speed.
-    * With enough knowledge to be dangerous, I transitioned to getting a base app together to build from using these basics. As I continue to enhance the app, more resources will be collected to answer the more specific questions that arise.
+    * With ASP.NET / C# being a new environment and language for this project, three to four days were spend purely working through tutorials and 
+	reading through digital resources to get up to speed.
+    * With enough knowledge to be dangerous, I transitioned to getting a base app together to build from using these basics. As I continue to 
+	enhance the app, more resources will be collected to answer the more specific questions that arise.
     * Before working together the models and controllers, focus was turned to defining a preliminary database structure to achieve the desired result.
-    * Due to simplicity and similarity to available tutorials / guides, the ToDo portion was tackled first. Configuring the relational piece of the tables proved to difficult, with out-dated tutorials and inconsistent information. Once the ToDo items were tied to their user, some bonus features such as pagination, filtering, sorting were added.
-
+    * ToDo Module: Due to simplicity and similarity to available tutorials / guides, the ToDo portion was tackled first. Configuring the relational 
+	piece of the tables proved to difficult, with out-dated tutorials and inconsistent information. Once the ToDo items were tied to their user, some 
+	bonus features such as pagination, filtering, sorting were added.
+	* Notes Module: Creating the Notes Module was largely an exercise in replicating the CRUD of ToDo and adding the Markdown Conversion functionality. 
+	Although the Markdown conversion works well, it took time to fully integrate and adjust overlapping CSS for an appropriate appearance. 
+	Another learned lesson on this portion was dealing with data validation. As the converter will allow HTML tags, the validation routine was catching 
+	the tags and reporting unsafe conditions (and potential of allowing hack-scripts). In this case, the tags are desired and after a lot of investigation, 
+	adding `[AllowHtml]` to the Document Model provided correct validation. Although there are methods to counter the validation through the controller, 
+	that could introduce security holes into the application.
+	* As I always focus on functionality programming, little has been done on the overall look of the page. Thankfully the default project with Visual 
+	Studio uses Bootstrap and a minimal appearance that I can build from.
 
 ### Installation:
 <!-- **Install on your local system**
