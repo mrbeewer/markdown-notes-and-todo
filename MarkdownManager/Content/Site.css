@@ -20,11 +20,59 @@
 input,
 select,
 textarea {
-    max-width: 500px;
+    max-width: 545px;
 }
 
 .checkbox-inline {
     padding-top: 0px !important;
+    margin-left: 0;
+    margin-right: 5px;
     width: auto !important;
 }
 
+.no-gutter > [class*='col-'] {
+    padding-right: 2px;
+    padding-left: 2px;
+}
+
+.jumbotron {
+    padding-top: 0;
+}
+
+.form-group {
+    margin: 10px;
+}
+
+.fiddle-partial-textarea {
+    padding-bottom: 0;
+}
+
+div.fiddle-partial-textarea > textarea{
+    height: 80px;
+}
+
+#toggle {
+      position:absolute;
+      width:40%;
+      height:460px;
+      top: 305px;
+      left: 50%;
+      z-index: 1;
+      background-color: #fbfbfb;
+      border: 1px solid black;
+      border-radius: 4px;
+      display: none;
+  }
+
+#toggleDemo {
+      position:absolute;
+      width:40%;
+      height:460px;
+      top: 900px;
+      left: 50%;
+      z-index: 1;
+      background-color: #fbfbfb;
+      border: 1px solid black;
+      border-radius: 4px;
+      display: none;
+  }

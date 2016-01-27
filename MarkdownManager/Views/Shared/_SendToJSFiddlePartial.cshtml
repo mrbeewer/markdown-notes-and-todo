@@ -1,0 +1,64 @@
+﻿<!-- One can POST code to JSFiddle -->
+<!-- Documention: http://doc.jsfiddle.net/api/post.html -->
+<!-- AJAX call wasn't working properly, this example used a form POST -->
+<!-- http://jsfiddle.net/zalun/sthmj/embedded/result/ -->
+
+<div id="sendCode" >
+    <h4 class="text-center">Provide HTML/CSS/JS and load a fiddle </h4>
+    <form method='post' action='http://jsfiddle.net/api/post/mootools/1.2/dependencies/more/' target='check'>
+        <div style="margin-right: 19px; margin-left: 10px;">
+            <input type='text' name='title' placeholder='Enter a Title (Optional)' class="form-control" />
+        </div>
+
+        <div class="row">
+            <div class="col-xs-3 form-group">
+                <select name="panel_html" class="form-control">
+                    <option value="0">HTML</option>
+                </select>
+            </div>
+
+            <div class="col-xs-8 form-group fiddle-partial-textarea no-gutter">
+                <textarea name='html' class="form-control">
+                    <p class="purple">Sending code from Markdown Manager to JSFiddle; cool!</p>
+                </textarea>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-3 form-group">
+                <select name="panel_js" class="form-control">
+                    <option value="0">JavaScript</option>
+                    <option value="1">CoffeeScript</option>
+                    <option value="2">JavaScript 1.7</option>
+                </select>
+            </div>
+            <div class="col-xs-8 form-group fiddle-partial-textarea">
+                <textarea name='js' class="form-control">
+                    window.addEvent('domready', function() {
+                    $$('p.purple').each(function(el) {
+                    el.setStyle('color', 'purple');
+                    });
+                    });
+                </textarea>
+            </div>
+        </div>
+   
+        <div class="row">
+            <div class="col-xs-3 form-group">
+                <select name="panel_css" class="form-control">
+                    <option value="0">CSS</option>
+                    <option value="1">SCSS</option>
+                </select>
+            </div>
+            <div class="col-xs-8 form-group fiddle-partial-textarea">
+                <textarea name='css' class="form-control">p {font-family: Helvetica, Arial; }</textarea>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <button id="sendCodeBtn" type="submit" class="btn btn-primary">Load JSFiddle</button>
+            <p>Fiddle will be loaded in a different browser window/tab!</p>
+        </div>
+    </form>
+</div>

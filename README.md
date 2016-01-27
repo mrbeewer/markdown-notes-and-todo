@@ -1,10 +1,11 @@
-# Markdown Notes & Todo
-Web based markdown editor focused on note taking and tracking ToDo's
+# Markdown Manager
+Markdown Manager is a web based markdown editor with a focus on management through notes and todos.
 
-#### [Click Me! (SOON)](http://markdownmanager.azurewebsites.net/)
+#### [Click Me!](http://markdownmanager.azurewebsites.net/)
 ###### Test with --> username: *fake@fake.com*, password: *P_assw0rd1*
-<br>
-<br>
+<p align="center">
+  <img width="400px" src="https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/MarkdownManager/Images/Logo.png" alt="MarkdownManager Logo"/>
+<p>
 
 
 ### Screenshots:
@@ -23,17 +24,17 @@ Web based markdown editor focused on note taking and tracking ToDo's
 </p>
 
 ### Technology:
-<!-- * HTML, CSS, JavaScript, jQuery
-* Node.js, Express.js - MVC and RESTful API
-* MongoDB - Database Management
+* HTML, CSS, JavaScript, jQuery
+* ASP.NET (C#) + Razor - MVC and RESTful API
+* OAuth - User Authorization
+* Microsoft SQL - Database Management
 * MongoHub - Easy DB Modification
-* Passport - User Authentication and Sessions
-* JSON - API Dealing
-* Semantic - CSS Framework
-* [JSON Generator](http://www.json-generator.com/) - Database of fake restaurants -->
+* Bootstrap - CSS Framework
+* GIMP - Logo
+* [Bootstrap Toggle](http://www.bootstraptoggle.com/)
 * [Draw.io](http://draw.io) - Wireframes and ERD
 * [Trello](https://trello.com) - SCRUM Board
-* [Bootstrap Toggle](http://www.bootstraptoggle.com/)
+
 
 ### Links:
 * Use Case Diagram, Activity Diagram, User Stories, Wireframes, ERD
@@ -41,7 +42,7 @@ Web based markdown editor focused on note taking and tracking ToDo's
   * [PDF](https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/misc-files/UML-Markdown+Todo.pdf)
   * [Draw.io](https://drive.google.com/file/d/0B1PeprrWaiPLcEZVa0NiUTBEa1E/view?usp=sharing)
 * [SCRUM Board](https://trello.com/b/rvAVYeyS)
-* Live App - [SOON](http://markdownmanager.azurewebsites.net/)
+* Live App - [Markdown Manager](http://markdownmanager.azurewebsites.net/)
 
 ### Approach:
   * Planning Phase
@@ -66,17 +67,32 @@ Web based markdown editor focused on note taking and tracking ToDo's
     * With enough knowledge to be dangerous, I transitioned to getting a base app together to build from using these basics. As I continue to 
 	enhance the app, more resources will be collected to answer the more specific questions that arise.
     * Before working together the models and controllers, focus was turned to defining a preliminary database structure to achieve the desired result.
-    * ToDo Module: Due to simplicity and similarity to available tutorials / guides, the ToDo portion was tackled first. Configuring the relational 
-	piece of the tables proved to difficult, with out-dated tutorials and inconsistent information. Once the ToDo items were tied to their user, some 
-	bonus features such as pagination, filtering, sorting were added.
-	* Notes Module: Creating the Notes Module was largely an exercise in replicating the CRUD of ToDo and adding the Markdown Conversion functionality. 
-	Although the Markdown conversion works well, it took time to fully integrate and adjust overlapping CSS for an appropriate appearance. 
-	Another learned lesson on this portion was dealing with data validation. As the converter will allow HTML tags, the validation routine was catching 
-	the tags and reporting unsafe conditions (and potential of allowing hack-scripts). In this case, the tags are desired and after a lot of investigation, 
-	adding `[AllowHtml]` to the Document Model provided correct validation. Although there are methods to counter the validation through the controller, 
-	that could introduce security holes into the application.
+    * ToDo Module: 
+		* Due to simplicity and similarity to available tutorials / guides, the ToDo portion was tackled first. Configuring the relational 
+		piece of the tables proved to difficult, with out-dated tutorials and inconsistent information. Once the ToDo items were tied to their user, some 
+		bonus features such as pagination, filtering, sorting were added.
+	* Notes Module: 
+		* Creating the Notes Module was largely an exercise in replicating the CRUD of ToDo and adding the Markdown Conversion functionality. 
+		Although the Markdown conversion works well, it took time to fully integrate and adjust overlapping CSS for an appropriate appearance. 
+		Another learned lesson on this portion was dealing with data validation. As the converter will allow HTML tags, the validation routine was catching 
+		the tags and reporting unsafe conditions (and potential of allowing hack-scripts). In this case, the tags are desired and after a lot of investigation, 
+		adding `[AllowHtml]` to the Document Model provided correct validation. Although there are methods to counter the validation through the controller, 
+		that could introduce security holes into the application.
 	* As I always focus on functionality programming, little has been done on the overall look of the page. Thankfully the default project with Visual 
 	Studio uses Bootstrap and a minimal appearance that I can build from.
+	* JSFiddle Form: 
+		* Although not quite as 'cool' as an embedded sandbox, a form (opened through more toggle switches!) can be accessed allowing the user 
+		to enter HTML/CSS/JS and open a JSFiddle with the code ready. The idea is that a user could copy code from their notes and get a JSFiddle ready without
+		switching between pages multiple times. The user can also place the link for the JSFiddle along the code block for later viewing / testing / editing.
+		* A couple of pieces needed to be tackled for the form that were new. The first was having the form slide in with a z-index 'above' the page. Although 
+		the form could have been implemented like the 'easy add' ToDo, I didn't want to push the containers farther down and require the user to scroll up/down 
+		to copy the code from their notes and paste them into the form.
+		* The next piece was successfully posting the information to JSFiddle. The original attempt of using an AJAX call was unsuccessful (potentially a header 
+		issue? Needs further investigation) however, the documentation included an example that used the form post method which worked appropriately.
+	* With (theoretically) the last toggle added to the markdown header, focused switched to styling and responsive management. Although this application's deployment
+	has been focused for desktop use, it could still be efficiently used on a tablet sized device. As such, the Bootstrap grid system was used to keep input boxes 
+	and toggles from stacking up. Working with multiple CSS files has shown me that projects may require a stronger focus on consolidation.
+	* While working with CSS and JSFiddle, some time was spent creating a sample logo using GIMP.
 
 ### Installation:
 <!-- **Install on your local system**
@@ -169,12 +185,23 @@ Web based markdown editor focused on note taking and tracking ToDo's
 
 
 ### Unsolved Problems:
-* SOON
+* **Embedded Code Sandbox** - During the planning and design stage, a user story was connected to the ability to run
+/ test code while within the application. As there are a number of these sandboxes on the web, it was thought that
+one should allow for embedding (and still allow editing / testing). In terms of a free source that could be integrated
+within the timeline, nothing was found to fit the need. As such, the ability to put code from notes into a form to post
+to JSFiddle was added. This is not the best solution, but may prove to be handy.
+* Connected to the above, was unable to make a standard AJAX call to post the code to JSFiddle, may require additional 
+specifiers. However, an (example)[http://jsfiddle.net/zalun/sthmj/embedded/result/] was found using a form post to send
+the information. This method works just as well.
 
 
 
 
 ### Change Log:
+  * 26JAN2016
+	* CRUD funtionality has been working successfully
+	* Added toggle button to post code to JSFiddle (to test/run)
+	* Improved responsive design, specifically the toggle buttons as the screen width decreases.
   * 24JAN2016
 	* Updated ToDo module - added ability to filter, search, and display with multiple pages
 	* Added Notes module - able to CRUD notes, markdown conversion is functional, filter, search, pagination
