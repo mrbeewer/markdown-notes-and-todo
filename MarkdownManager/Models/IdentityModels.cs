@@ -30,8 +30,6 @@ namespace MarkdownManager.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<ContactManager.Models.Contact> Contacts { get; set; }
-
         public System.Data.Entity.DbSet<MarkdownManager.Models.ToDo> ToDoes { get; set; }
 
         public System.Data.Entity.DbSet<MarkdownManager.Models.Document> Documents { get; set; }
