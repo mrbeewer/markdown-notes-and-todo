@@ -1,0 +1,18 @@
+﻿@model MarkdownManager.Models.Document
+
+<div class="container full-height form-control">
+    <div class="row full-height">
+        <div id="markdown-input" class="col-md-6 full-height">
+            <div id="markdown-buttons" class="demo-control"><a href="#" class="source-clear">clear</a><a id="permalink" href="./" title="Share this snippet as link"><strong>permalink</strong></a></div>
+            @Html.TextAreaFor(model => model.Text, new { @id = "markdown-text", @class = "source full-height form-control" })
+            @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+        </div>
+        <!-- output panel -->
+        <section id="html-output" class="col-md-6 full-height">
+            <div id="html-buttons" class="demo-control"><a href="#" data-result-as="html">html</a><a href="#" data-result-as="src">source</a></div>
+            <div class="result-html full-height"></div>
+            <pre class="result-src full-height"><code class="result-src-content full-height"></code></pre>
+            <pre class="result-debug full-height"><code class="result-debug-content full-height"></code></pre>
+        </section>
+    </div>
+</div>

@@ -1,7 +1,163 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<h1>Markdown Notes &amp; Todo</h1>
+<p>Web based markdown editor focused on note taking and tracking ToDo’s</p>
+<p>
+    <br><br />
+    <br>
+</p>
+<h3>Screenshots:</h3>
+
+<p align="center">
+    <img width="400" src="~/Images/UMLMarkdownManager.png" alt="Planning" />
+    <br>
+    <!-- <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-secondaryRefinementWChoices.png" alt="moogl - Secondary Refinement With Choices View"/>
+    <br>
+    <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-mapWPins.png"  alt="moogl - Map With Pins / Locations View"/>
+    <br>
+    <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-mapWDetails.png"  alt="moogl - Map With Location Detail (small) View"/>
+    <br>
+    <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-LocationDetails.png"  alt="moogl - Location Detail View"/>
+    <br>
+    <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-BurgerDetails.png"  alt="moogl - Burger Detail View"/> -->
+</p>
+<h3>Technology:</h3>
+<ul>
+    <li>HTML, CSS, JavaScript, jQuery</li>
+    <li>ASP.NET / C# - MVC and RESTful API</li>
+    <li>Microsoft SQL - Database Management</li>
+    <li>OAuth- User Authentication and Sessions</li>
+    <li>JSON - API Dealing</li>
+    <li>Bootstrap - CSS Framework</li>
+    <li><a href="http://www.bootstraptoggle.com/">Bootstrap Toggle</a></li>
+    <li><a href="http://draw.io">Draw.io</a> - Wireframes and ERD</li>
+    <li><a href="https://trello.com">Trello</a> - SCRUM Board</li>
+</ul>
+<h3>Links:</h3>
+<ul>
+    <li>
+        Use Case Diagram, Activity Diagram, User Stories, Wireframes, ERD
+        <ul>
+            <li><a href="https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/misc-files/UML-Markdown+Todo.png">Image</a></li>
+            <li><a href="https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/misc-files/UML-Markdown+Todo.pdf">PDF</a></li>
+            <li><a href="https://drive.google.com/file/d/0B1PeprrWaiPLcEZVa0NiUTBEa1E/view?usp=sharing">Draw.io</a></li>
+        </ul>
+    </li>
+    <li><a href="https://trello.com/b/rvAVYeyS">SCRUM Board</a></li>
+    <li>Live App - <a href="http://markdownmanager.azurewebsites.net/">SOON</a></li>
+</ul>
+<h3>Approach:</h3>
+<ul>
+    <li>
+        Planning Phase
+        <ul>
+            <li>With more time available on this project, more time was spent on the planning phase.</li>
+            <li>Used Trello for basic SCRUM management as well as keeping track of resources and things that needed to be researched further.</li>
+            <li>Used Draw.io to put together Use Case Diagrams, UML Diagrams, User Stories, and Wireframing.</li>
+        </ul>
+    </li>
+    <li>
+        Project Outline
+        <ul>
+            <li>MVP - Web application where a user can login / register, use Markdown make documents (with code snippets) and create / manage a ToDo list.</li>
+            <li>
+                After logging into the system, the user will be able to use Markdown syntax to make documents as they see fit. This project initially is<br />
+                geared towards notes / project management for a programmer / developer. As such, code blocks and syntax highlighting is important.
+            </li>
+            <li>
+                In order to keep the user within the app and to facilitate task management, the user will be able to easily add and view ToDo tasks.<br />
+                These tasks will also have an option for tagging for increased organization.
+            </li>
+            <li>
+                Planned Technologies:
+                <ul>
+                    <li>ASP.NET for server side</li>
+                    <li>SQL for database (unsure at the moment)</li>
+                    <li>HTML / CSS / JavaScript for client side</li>
+                    <li>
+                        <em>
+                            Will take advantage of available Markdown converters and syntax highlighting as the intention of this project is not to develope those<br />
+                            from scratch but show the ability to incorporate previously developed technology.
+                        </em>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        Development Phase
+        <ul>
+            <li>
+                With ASP.NET / C# being a new environment and language for this project, three to four days were spend purely working through tutorials and<br />
+                reading through digital resources to get up to speed.
+            </li>
+            <li>
+                With enough knowledge to be dangerous, I transitioned to getting a base app together to build from using these basics. As I continue to<br />
+                enhance the app, more resources will be collected to answer the more specific questions that arise.
+            </li>
+            <li>Before working together the models and controllers, focus was turned to defining a preliminary database structure to achieve the desired result.</li>
+            <li>
+                ToDo Module: Due to simplicity and similarity to available tutorials / guides, the ToDo portion was tackled first. Configuring the relational<br />
+                piece of the tables proved to difficult, with out-dated tutorials and inconsistent information. Once the ToDo items were tied to their user, some<br />
+                bonus features such as pagination, filtering, sorting were added.
+            </li>
+            <li>
+                Notes Module: Creating the Notes Module was largely an exercise in replicating the CRUD of ToDo and adding the Markdown Conversion functionality.<br />
+                Although the Markdown conversion works well, it took time to fully integrate and adjust overlapping CSS for an appropriate appearance.<br />
+                Another learned lesson on this portion was dealing with data validation. As the converter will allow HTML tags, the validation routine was catching<br />
+                the tags and reporting unsafe conditions (and potential of allowing hack-scripts). In this case, the tags are desired and after a lot of investigation,<br />
+                adding <code>[AllowHtml]</code> to the Document Model provided correct validation. Although there are methods to counter the validation through the controller,<br />
+                that could introduce security holes into the application.
+            </li>
+            <li>
+                As I always focus on functionality programming, little has been done on the overall look of the page. Thankfully the default project with Visual<br />
+                Studio uses Bootstrap and a minimal appearance that I can build from.
+            </li>
+        </ul>
+    </li>
+</ul>
+<h3>Unsolved Problems:</h3>
+<ul>
+    <li>SOON</li>
+</ul>
+<h3>Change Log:</h3>
+<ul>
+    <li>
+        24JAN2016
+        <ul>
+            <li>Updated ToDo module - added ability to filter, search, and display with multiple pages</li>
+            <li>Added Notes module - able to CRUD notes, markdown conversion is functional, filter, search, pagination</li>
+        </ul>
+    </li>
+    <li>
+        23JAN2016
+        <ul>
+            <li>Added TODO Model/Controller/CRUD</li>
+            <li>Time spent learning how to update database on ‘checkbox’ click rather than a submit button</li>
+        </ul>
+    </li>
+    <li>
+        21JAN2016
+        <ul>
+            <li>Added initial ASP.NET (C#) base code</li>
+            <li>Readme updates (added Azure link)</li>
+        </ul>
+    </li>
+    <li>
+        17JAN2016
+        <ul>
+            <li>Readme updates (links, typos)</li>
+            <li>Updated planning images (need a better name for that collection)</li>
+        </ul>
+    </li>
+    <li>
+        16JAN2016
+        <ul>
+            <li>Repository Created</li>
+            <li>Added Links (Draw.io planning, Trello board) to README</li>
+        </ul>
+    </li>
+</ul>
+

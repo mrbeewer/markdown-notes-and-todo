@@ -5,13 +5,40 @@
 
 @{
     ViewBag.Title = "Notes:";
+    var deleteId = 0;
 }
 
 <h2>Notes:</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Create New Note
+    </button>
 </p>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Create New Note</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("_CreateNotePartial", new MarkdownManager.Models.Document())
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 
 @using (Html.BeginForm("Index", "Document", FormMethod.Get))
 {
@@ -46,9 +73,17 @@
             @Html.DisplayFor(modelItem => item.ParentFolder)
         </td>
         <td>
-            @Html.ActionLink("Edit / View", "Edit", new { id=item.Id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-danger" })
+
+            
+            <div class="col-xs-12">
+            @Html.ActionLink("Edit / View", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
+                @using (Html.BeginForm("Delete", "Document", new { id = item.Id }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure?')" />
+                }
+            </div>
         </td>
     </tr>
 }
@@ -59,3 +94,5 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
 new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+pt>

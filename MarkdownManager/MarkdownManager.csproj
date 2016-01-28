@@ -363,6 +363,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\btn_google.png" />
     <Content Include="Images\Logo.png" />
     <Content Include="Images\UMLMarkdownManager.png" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
@@ -387,6 +388,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MarkdownKeyCapture.js" />
     <Content Include="Scripts\MarkdownToggleShowHide.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\remarkable-index.js" />
@@ -452,6 +454,8 @@
     <Content Include="Views\Shared\_MarkdownDemo.cshtml" />
     <Content Include="Views\Shared\_HeaderDemo.cshtml" />
     <Content Include="Views\Shared\_SendToJSFiddlePartial.cshtml" />
+    <Content Include="Views\Shared\_CreateNotePartial.cshtml" />
+    <Content Include="Views\Shared\_DeleteNotePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

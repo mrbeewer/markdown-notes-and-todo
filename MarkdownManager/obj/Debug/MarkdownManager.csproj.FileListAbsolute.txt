@@ -230,6 +230,6 @@ C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\bin\Pa
 C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\bin\PagedList.xml
 C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\bin\PagedList.Mvc.xml
 C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\obj\Debug\MarkdownManager.Migrations.AddDocument.resources
-C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\obj\Debug\MarkdownManager.csprojResolveAssemblyReference.cache
 C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\bin\dotless.Core.dll
 C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\bin\dotless.Core.pdb
+C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\obj\Debug\MarkdownManager.csprojResolveAssemblyReference.cache

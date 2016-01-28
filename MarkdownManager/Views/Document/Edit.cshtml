@@ -1,7 +1,11 @@
 ﻿@model MarkdownManager.Models.Document
 
 @{
+    var message = ViewData["message"];
+}
+@{
     ViewBag.Title = "Edit";
+
 }
 
 <!-- Necessary Scripts, CSS Links for Markdown Converter -->
@@ -11,7 +15,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
 
 <!-- Header with Title -->
-@Html.Partial("_HeaderWTogglesPartial", new ViewDataDictionary { { "title", "Edit Note" } })
+@Html.Partial("_HeaderWTogglesPartial", new ViewDataDictionary { { "title", "Edit Note" }, { "message", @message } })
 
 <!-- A toggle-able ToDo Easy Add -->
 <div id="todo-partial" style="margin: 0 0 15px 0;">

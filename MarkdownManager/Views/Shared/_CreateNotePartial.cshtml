@@ -1,0 +1,39 @@
+﻿@model MarkdownManager.Models.Document
+
+<!-- Form Control (CRUD - Create) -->
+@using (Html.BeginForm("Create", "Document"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="margin: 20px 0 0 0;">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="container" style="padding: 0; margin-bottom:10px;">
+            <div class="text-center no-gutter">
+                <div class="col-xs-5 col-md-5">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @placeholder = "Note Name", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-4 col-md-5">
+                    @Html.EditorFor(model => model.ParentFolder, new { htmlAttributes = new { @placeholder = "Tag", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ParentFolder, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-3 col-md-2">
+                    <input type="submit" value="Create" class="btn btn-primary" style="width: 100%;" />
+                </div>
+
+                <div id="markdown-input" class="" style="display:none;">
+                    @Html.TextArea(" ", new { @id = "markdown-text", @class = "source full-height form-control" })
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+}

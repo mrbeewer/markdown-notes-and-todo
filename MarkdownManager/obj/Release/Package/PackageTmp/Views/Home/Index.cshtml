@@ -2,30 +2,57 @@
     ViewBag.Title = "Home Page";
 }
 
+<!-- Necessary Scripts, CSS Links for Markdown Converter -->
+@Html.Partial("_MarkdownScriptsLinksPartial")
+
+
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <p align="center"><img src="/Images/Logo.png" style="width: 40%;"></p>
+    <h1>Markdown Manager</h1>
+    <p class="lead">
+        Markdown Manager is a web based markdown editor with a focus on management through notes and todos.
+    </p>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h2>Demo - Try it Out!</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            Scroll down and give it a try without registering! As a user you can save notes and ToDo for easy access. 
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p><a class="btn btn-primary" href="#headerDemo">Demo Now &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h2>Manage ToDos</h2>
+        <p>The cool kids combine their notes with ToDos. Why would you want to change applications when your ToDos are applicable to your notes? Don't do that! Use Markdown Manager!</p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Run your code!</h2>
+        <p>Easily open code in JSFiddle so you can test code while you are working on your notes!</p>
+        <p><a class="btn btn-primary" href="#headerDemo">Demo Now &raquo;</a></p>
     </div>
 </div>
+
+<!-- jquery ui script for -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+
+<!-- A toggle-able JSFiddle POST -->
+<div id="toggleDemo">
+    @Html.Partial("_SendToJSFiddlePartial")
+</div>
+
+<!-- Header with Title -->
+@Html.Partial("_HeaderDemo", new ViewDataDictionary { { "title", "Create New Note" } })
+
+<div id="markdownDemo" class="form-horizontal" style="margin: 20px 0 0 0;">
+    <!-- Markdown Input / Output Containers using Models -->
+    @Html.Partial("_MarkdownDemo")
+</div>
+
+<script src="~/Scripts/MarkdownToggleShowHide.js"></script>
+
+<script>
+    $(window).on("hashchange", function () {
+        window.scrollTo(window.scrollX, window.scrollY - 70);
+    });
+</script>

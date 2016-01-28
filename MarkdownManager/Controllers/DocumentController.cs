@@ -97,7 +97,9 @@ namespace MarkdownManager.Controllers
                 document.ApplicationUserID = currentUser;
                 db.Documents.Add(document);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                var id = db.Documents.Find(document.Id).Id;
+                //var id = documentEdit.Id;
+                return RedirectToAction("Edit", new { id = id });
             }
 
             return View(document);
@@ -131,7 +133,10 @@ namespace MarkdownManager.Controllers
                 db.Entry(document).State = EntityState.Modified;
                 document.ApplicationUserID = currentUser;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                //return new EmptyResult();
+                ViewData["message"] = "Note Saved!";
+                return View();
             }
             return View(document);
         }
@@ -148,7 +153,8 @@ namespace MarkdownManager.Controllers
             {
                 return HttpNotFound();
             }
-            return View(document);
+            //return View(document);
+            return RedirectToAction("Index");
         }
 
         // POST: Document/Delete/5

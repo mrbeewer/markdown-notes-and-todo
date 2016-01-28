@@ -1,0 +1,70 @@
+﻿@model MarkdownManager.Models.ToDo
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal text-center">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="container no-gutter" style="padding: 0; margin-bottom:5px;">
+            <div class="col-xs-5 col-md-5">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @id = "todoDesc", @placeholder = "Description", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-xs-4 col-md-5">
+                @Html.EditorFor(model => model.Tag, new { htmlAttributes = new { @id = "todoTag", @placeholder = "Tag", @data_url = @Url.Action("Create", "ToDo"), @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Tag, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-xs-3 col-md-2">
+                <input id="addTodo" type="button" value="Create ToDo" class="btn btn-default" style="width: 100%;" />
+            </div>
+        </div>
+    </div>
+} 
+
+
+<script>
+    $('#addTodo').click(function () {
+        // alert("button clicked");
+        var tag = $('#todoTag').val();
+        var desc = $('#todoDesc').val();
+        var isDone = false;
+        var url = $('#todoTag').data('url');
+        // alert(tag + desc + isDone);
+
+        var form = $('#__AjaxAntiForgeryForm');
+        var token = $('input[name="__RequestVerificationToken"]', form).val();
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                __RequestVerificationToken: token,
+                IsDone: isDone,
+                Description: desc,
+                Tag: tag
+            },
+            success: function (result) {
+                alert("Todo Successful Updated");
+                // clear the boxes out
+                $('#todoTag').val("");
+                $('#todoDesc').val("");
+            },
+            error: function (err) {
+                console.log("submit error");
+            }
+        });
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
