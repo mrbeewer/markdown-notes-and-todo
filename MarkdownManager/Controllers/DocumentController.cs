@@ -19,6 +19,7 @@ namespace MarkdownManager.Controllers
         // GET: Document
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            // Sorting Criteria
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.ParentFolderSortParam = String.IsNullOrEmpty(sortOrder) ? "parentfolder_desc" : "";
@@ -34,7 +35,7 @@ namespace MarkdownManager.Controllers
             }
             ViewBag.CurrentFilter = searchString;
 
-
+            // Find documents that belong to the user
             var documents = from d in db.Documents select d;
             string currentUser = User.Identity.GetUserId();
 
@@ -44,6 +45,7 @@ namespace MarkdownManager.Controllers
                 documents = documents.Where(doc => doc.ParentFolder.Contains(searchString));
             }
 
+            // Order the found documents as specified
             switch (sortOrder)
             {
                 case "name_desc":
@@ -57,12 +59,15 @@ namespace MarkdownManager.Controllers
                     break;
             }
 
+            // Specify the pagination settings and render view
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(documents.ToPagedList(pageNumber, pageSize));
         }
 
+        
         // GET: Document/Details/5
+        // This route is not currently being accessed, it seems unnecessary in the current version
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -77,6 +82,7 @@ namespace MarkdownManager.Controllers
             return View(document);
         }
 
+
         // GET: Document/Create
         public ActionResult Create()
         {
@@ -84,13 +90,11 @@ namespace MarkdownManager.Controllers
         }
 
         // POST: Document/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Route adjusted so upon creation, redirect to the edit of that note/document
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Text,ParentFolder")] Document document)
         {
-            //document.Text = Server.HtmlDecode(document.Text);
             string currentUser = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
@@ -98,12 +102,11 @@ namespace MarkdownManager.Controllers
                 db.Documents.Add(document);
                 db.SaveChanges();
                 var id = db.Documents.Find(document.Id).Id;
-                //var id = documentEdit.Id;
                 return RedirectToAction("Edit", new { id = id });
             }
-
             return View(document);
         }
+
 
         // GET: Document/Edit/5
         public ActionResult Edit(int? id)
@@ -121,8 +124,8 @@ namespace MarkdownManager.Controllers
         }
 
         // POST: Document/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Route adjusted to provide a "success" message upon saving the document. Will keep the document open
+        //  so the user can save as they work (and not be redirected to the index)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Text,ParentFolder")] Document document)
@@ -133,13 +136,12 @@ namespace MarkdownManager.Controllers
                 db.Entry(document).State = EntityState.Modified;
                 document.ApplicationUserID = currentUser;
                 db.SaveChanges();
-                //return RedirectToAction("Index");
-                //return new EmptyResult();
                 ViewData["message"] = "Note Saved!";
                 return View();
             }
             return View(document);
         }
+
 
         // GET: Document/Delete/5
         public ActionResult Delete(int? id)
@@ -153,7 +155,6 @@ namespace MarkdownManager.Controllers
             {
                 return HttpNotFound();
             }
-            //return View(document);
             return RedirectToAction("Index");
         }
 
@@ -168,6 +169,8 @@ namespace MarkdownManager.Controllers
             return RedirectToAction("Index");
         }
 
+
+        // Dispose of the database connection
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -36,6 +36,7 @@ namespace MarkdownManager.Controllers
         // GET: ToDo
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            // Sort Order Criteria
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DescriptionSortParam = String.IsNullOrEmpty(sortOrder) ? "description_desc" : "";
             ViewBag.IsDoneSortParam = String.IsNullOrEmpty(sortOrder) ? "isDone_asc" : "";
@@ -52,7 +53,7 @@ namespace MarkdownManager.Controllers
             }
             ViewBag.CurrentFilter = searchString;
 
-
+            // Find ToDos that belong to the user
             var todoes = from t in db.ToDoes select t;
             string currentUser = User.Identity.GetUserId();
 
@@ -62,6 +63,7 @@ namespace MarkdownManager.Controllers
                 todoes = todoes.Where(todo => todo.Tag.Contains(searchString));
             }
 
+            // Order the ToDos as specified
             switch (sortOrder)
             {
                 case "description_desc":
@@ -78,15 +80,15 @@ namespace MarkdownManager.Controllers
                     break;
             }
 
+            // Pagination settings and render the view
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(todoes.ToPagedList(pageNumber, pageSize));
         }
 
 
-
-
         // GET: ToDo/Details/5
+        // This route is not currently being accessed, it seems unnecessary in the current version
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -102,8 +104,6 @@ namespace MarkdownManager.Controllers
         }
 
 
-
-
         // GET: ToDo/Create
         public ActionResult Create()
         {
@@ -111,8 +111,6 @@ namespace MarkdownManager.Controllers
         }
 
         // POST: ToDo/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Description,IsDone,Tag")] ToDo toDo)
@@ -130,9 +128,6 @@ namespace MarkdownManager.Controllers
         }
 
 
-
-
-
         // GET: ToDo/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -147,13 +142,8 @@ namespace MarkdownManager.Controllers
             }
             return View(toDo);
         }
-
-
-
-
+        
         // POST: ToDo/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Description,IsDone,Tag")] ToDo toDo)
@@ -172,7 +162,6 @@ namespace MarkdownManager.Controllers
         }
 
 
-
         // GET: ToDo/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -185,11 +174,8 @@ namespace MarkdownManager.Controllers
             {
                 return HttpNotFound();
             }
-            return View(toDo);
+            return RedirectToAction("Index");
         }
-
-
-
 
         // POST: ToDo/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -202,6 +188,8 @@ namespace MarkdownManager.Controllers
             return RedirectToAction("Index");
         }
 
+
+        // Dispose of the database connection
         protected override void Dispose(bool disposing)
         {
             if (disposing)

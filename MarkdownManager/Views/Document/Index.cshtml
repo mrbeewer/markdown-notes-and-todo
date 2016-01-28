@@ -3,21 +3,16 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 
-@{
-    ViewBag.Title = "Notes:";
-    var deleteId = 0;
-}
-
 <h2>Notes:</h2>
 
+<!-- Create New Note -->
 <p>
     <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
         Create New Note
     </button>
 </p>
 
-
-<!-- Modal -->
+<!-- Create Note Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -36,10 +31,7 @@
 </div>
 
 
-
-
-
-
+<!-- Searching Criteria -->
 @using (Html.BeginForm("Index", "Document", FormMethod.Get))
 {
     <div class="container" style="padding: 0;">
@@ -73,16 +65,14 @@
             @Html.DisplayFor(modelItem => item.ParentFolder)
         </td>
         <td>
-
-            
             <div class="col-xs-12">
             @Html.ActionLink("Edit / View", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
-                @using (Html.BeginForm("Delete", "Document", new { id = item.Id }))
-                {
-                    @Html.AntiForgeryToken()
-                    <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure?')" />
-                }
+            @*@Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })*@
+            @using (Html.BeginForm("Delete", "Document", new { id = item.Id }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure?')" />
+            }
             </div>
         </td>
     </tr>
@@ -94,5 +84,3 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
 new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-
-pt>

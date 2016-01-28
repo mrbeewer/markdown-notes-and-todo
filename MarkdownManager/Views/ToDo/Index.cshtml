@@ -2,17 +2,22 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-
 @{
     ViewBag.Title = "ToDo's";
 }
 
 <h2>ToDo's:</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
-</p>
+<!-- Necessary Scriptss -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery/1.11.1/jquery.min.js"></script>
 
+<!-- Add ToDo Partial -->
+<div id="todo-partial" style="margin: 0 0 15px 0;">
+    @Html.Partial("_AddToDoPartial", new MarkdownManager.Models.ToDo())
+</div>
+
+<!-- Searching Form -->
 @using (Html.BeginForm("Index", "ToDo", FormMethod.Get))
 {
     <div class="container" style="padding: 0;">
@@ -20,7 +25,7 @@
             @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @id = "searchString", @class = "form-control", @placeholder = "Filter by Tag" })
         </div>
         <div class="col-xs-4 col-md-2 text-center" style="margin: 0 0 10px 0; padding: 0;">
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button id="searchStringBtn" type="submit" class="btn btn-primary">Search</button>
         </div>
     </div>
 }
@@ -65,10 +70,17 @@
                 @Html.DisplayFor(modelItem => item.Tag)
             </td>
             <td>
-                @Html.ActionLink("Edit / View", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
-                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-            </td>
+                <div class="col-xs-12">
+                    @Html.ActionLink("Edit / View", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @* @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })*@
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })*@
+                    @using (Html.BeginForm("Delete", "ToDo", new { id = item.Id }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure?')" />
+                    }
+                </div>
+</td>
         </tr>
     }
 

@@ -1,8 +1,10 @@
 # Markdown Manager
 Markdown Manager is a web based markdown editor with a focus on management through notes and todos.
+*Markdown Conversion Powered By [Jon Schlinkert - Remarkable](https://github.com/jonschlinkert/remarkable)*
+*Syntax Highlighting Powered By [Highlight.js](https://highlightjs.org/)*
 
-#### [Click Me!](http://markdownmanager.azurewebsites.net/)
-###### Test with --> username: *fake@fake.com*, password: *P_assw0rd1*
+[Live Demo](http://markdownmanager.azurewebsites.net/)
+Test with --> username: *fake@fake.com*, password: *P_assw0rd1*
 <p align="center">
   <img width="400px" src="https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/MarkdownManager/Images/Logo.png" alt="MarkdownManager Logo"/>
 <p>
@@ -10,17 +12,11 @@ Markdown Manager is a web based markdown editor with a focus on management throu
 
 ### Screenshots:
 <p align="center">
-  <img width="400px" src="https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/misc-files/UML-Markdown+Todo.png" alt="Planning"/>
+  <img width="400px" src="https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/MarkdownManager/Images/UMLMarkdownManager.png" alt="Planning"/>
   <br>
-  <!-- <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-secondaryRefinementWChoices.png" alt="moogl - Secondary Refinement With Choices View"/>
+  <img width="400px" src="https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/MarkdownManager/Images/MarkdownManager_EditNote.png" alt="MarkdownManager - Edit Note"/>
   <br>
-  <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-mapWPins.png"  alt="moogl - Map With Pins / Locations View"/>
-  <br>
-  <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-mapWDetails.png"  alt="moogl - Map With Location Detail (small) View"/>
-  <br>
-  <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-LocationDetails.png"  alt="moogl - Location Detail View"/>
-  <br>
-  <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-BurgerDetails.png"  alt="moogl - Burger Detail View"/> -->
+  <img width="400px" src="https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/MarkdownManager/Images/MarkdownManager_JSFiddlePost.png"  alt="MarkdownManager - Post to JSFiddle"/>
 </p>
 
 ### Technology:
@@ -28,10 +24,10 @@ Markdown Manager is a web based markdown editor with a focus on management throu
 * ASP.NET (C#) + Razor - MVC and RESTful API
 * OAuth - User Authorization
 * Microsoft SQL - Database Management
-* MongoHub - Easy DB Modification
 * Bootstrap - CSS Framework
 * GIMP - Logo
 * [Bootstrap Toggle](http://www.bootstraptoggle.com/)
+* [GitHub Buttons by MDO](https://github.com/mdo/github-buttons)
 * [Draw.io](http://draw.io) - Wireframes and ERD
 * [Trello](https://trello.com) - SCRUM Board
 
@@ -93,111 +89,60 @@ Markdown Manager is a web based markdown editor with a focus on management throu
 	has been focused for desktop use, it could still be efficiently used on a tablet sized device. As such, the Bootstrap grid system was used to keep input boxes 
 	and toggles from stacking up. Working with multiple CSS files has shown me that projects may require a stronger focus on consolidation.
 	* While working with CSS and JSFiddle, some time was spent creating a sample logo using GIMP.
+	* Modal Support:
+		* With the success of implementing partials and testing the application during class, it was noticed that there were some annoying routing when creating and 
+		editing a note. With original routing, one would navigate to the 'Notes', click 'New Note' which would bring the user to a create page housing the markdown 
+		containers. However, if the user would then 'save' the note, they would be redirected back to the note list view. Similar routing occured when editting the 
+		document. These redirects are annoying if the user just wanted to save their work. As such, a modal to display text boxes for the new note name and parent 
+		folder and then redirect the user to the edit view was implemented. Within the edit view, instead of redirecting to the list view, a 'saved' message is returned 
+		and the user is able to continue working on their note.
+		* A Html.BeginForm helper for deletion was also added as directing the user to a delete view seemed unnecessary.
+  * Final Thoughts
+    * As this project was developed, it soon became an exercise in integrating and implementing snippets, widgets, etc that have been previously developed. Due to the 
+	timeframe, this was certainly necessary, but it is also beneficial to learn to incorporate work that has been performed rather than always starting from scratch. As 
+	a person that loves solving problems, this is of interest because problems become more interesting with more moving parts. However, it is hard to feel that one has 
+	*done* much when *just* putting parts together. At that point, I remind myself that car manufacturers are combining the work of external suppliers to make that car.
+	* Learning and using ASP.NET (C#) for this project over the course of two weeks was a challenge, especially with the not always helpful resources (largely due to being 
+	out of date). My previous familiarity with  VB / VB.NET was certainly a benefit regarding the learning curve.
+	* Things I would have done differently: Now that I better understand the built-in authentication and session management, I would structure the Models a little differently. 
+	As they currently exist, the 'MyUser' model which was intended to store user preferences is unused and not needed. With a better understanding of using partials, I also 
+	believe I could improve the efficiency and streamline navigation and routing better.
 
 ### Installation:
-<!-- **Install on your local system**
+**Install on your local system**
 * *Git* the files
   * Fork the repository and `git clone` to your local system
-* Setting up the Database
-  * Required: MongoDB (https://www.mongodb.org/)
-  * HIGHLY Recommended: MongoHub (https://github.com/jeromelebel/MongoHub-Mac)
-  * Within MongoHub:
-    * Create `moogl` Database, `locations` Collection, `searches` Collection
-    * Add data -> Double click on the collection (opens the query), click on Insert, and copy the contents of `db/seeds/LocationSeed.json` and `db/seeds/SearchSeed.json` appropriately
-* Install
-  * Within the root `moogl` folder, run `npm install` from the terminal. This will prepare/install the necessary dependencies for this project. If they are all successful, continue on...
-  * Again from the root `moogl` folder, run `npm start` to start the server.
+* Setting up the Environment
+  * This project was developed in VS 2015 (Community) using the LocalDB for local development.
+  * While developing this project, it was learned that LocalDB is not always installed with VS 2015. Be sure to install any database updates!
+* Open the Solution file in VS
+  * Build the solution and make sure all the dependencies are loaded properly
 * Check it out
-  * In your favorite browser, go to `localhost:3000` -->
-<!--
-**Install on Digital Ocean**
-* Create Droplet
-  * Set name of droplet ... `thoughtful`
-  * Choose plan ... $5/month
-  * Choose region ... America
-  * Choose Distribution ... Ubuntu
-  * Click CREATE
-* Config that Server!
-  * Once the email from Digital Ocean arrives, keep note of the IP address and password, you will need those in the next steps.
-  * On the terminal, access the server by `ssh root@123.123.123.123` using the IP sent by Digital Ocean.
-  * Answer yes to the authenticity alert
-  * Enter the provided password (twice) and setup a new password
-  Use the following commands
-  ```
-  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-  # Add the MongoDB team's key to the list of trusted keys
-
-  echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
-  # Add reference to the repository to our `apt` configuration
-
-  apt-get update
-  # updates the list of software our server knows about
-
-  apt-get install mongodb-org git build-essential openssl libssl-dev pkg-config
-  # Install MongoDB packages, git, and dependencies (Y x1)
-
-  git clone https://github.com/Beelers-Blockers/moogl.git
-  # clone down the repo with the correct URL (use HTTPS)
-
-  wget https://nodejs.org/dist/v4.2.4/node-v4.2.4.tar.gz
-  # download Node.js source code
-
-  tar xzvf node-v
-  # extract the archive
-
-  cd node-v*
-  # move into the node director
-
-  ./configure
-  make
-  # configure and build Node (takes while! ~30min?)
-
-  make install
-  # install Node
-
-  rm -rf ~/node-v*
-  # remove the source code and directory (clean it up!)
-
-  cd moogl
-  # change directory
-
-  npm install
-  # install dependencies
-
-  mongoimport --db moogl --collection searches --type json --file ~/moogl/db/seeds/SearchSeed.json --jsonArray
-  # Run in terminal, not mongo!!
-
-  mongoimport --db moogl --collection locations --type json --file ~/moogl/db/seeds/LocationsSeed.json --jsonArray
-  # Run in terminal
-
-  npm start
-  # run the server and test with IP.IP.IP.IP:3000
-
-  npm install -g forever
-  # install Forever globally
-
-  cd moogl
-  # move to the moogl folder if not there already
-
-  forever start --minUptime 1000 --spinSleepTime 1000 ./bin/www
-  # start the server and keep it running
-  ``` -->
+  * Debug > Start without Debugging and VS will open in your default browser. As the database will be created, it may take a few seconds to load up.
 
 
 ### Unsolved Problems:
-* **Embedded Code Sandbox** - During the planning and design stage, a user story was connected to the ability to run
+* Embedded Code Sandbox - During the planning and design stage, a user story was connected to the ability to run
 / test code while within the application. As there are a number of these sandboxes on the web, it was thought that
 one should allow for embedding (and still allow editing / testing). In terms of a free source that could be integrated
 within the timeline, nothing was found to fit the need. As such, the ability to put code from notes into a form to post
 to JSFiddle was added. This is not the best solution, but may prove to be handy.
+* Improved code syntax highlighting (contrast issues)
 * Connected to the above, was unable to make a standard AJAX call to post the code to JSFiddle, may require additional 
-specifiers. However, an (example)[http://jsfiddle.net/zalun/sthmj/embedded/result/] was found using a form post to send
+specifiers. However, an [example](http://jsfiddle.net/zalun/sthmj/embedded/result/) was found using a form post to send
 the information. This method works just as well.
+* Would like to replace the 'confirm' alerts with something prettier than the browser defaults.
 
 
 
 
 ### Change Log:
+  * 28JAN2016
+	* Added a modal to manage note creation / editing more smoothly
+	* Html.BeginForm helper used for deletion instead of redirecting to a 'delete' view
+	* 'Details' route/view is not currently being used, it currently is unnecessary
+	* Code cleaning, commenting
+	* Readme updates
   * 26JAN2016
 	* CRUD funtionality has been working successfully
 	* Added toggle button to post code to JSFiddle (to test/run)
