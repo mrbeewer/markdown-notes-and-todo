@@ -48,10 +48,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Name", "Index", new { sortNameOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("ParentFolder", "Index", new { sortOrder = ViewBag.ParentFolderSortParam, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("ParentFolder", "Index", new { sortParentFolderOrder = ViewBag.ParentFolderSortParam, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>

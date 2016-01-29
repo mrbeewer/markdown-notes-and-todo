@@ -140,6 +140,7 @@ the information. This method works just as well.
   * 28JAN2016
 	* Added a modal to manage note creation / editing more smoothly
 	* Html.BeginForm helper used for deletion instead of redirecting to a 'delete' view
+	* Made some improvements for Index (Get All) View sorting. It has been acting up.
 	* 'Details' route/view is not currently being used, it currently is unnecessary
 	* Code cleaning, commenting
 	* Readme updates

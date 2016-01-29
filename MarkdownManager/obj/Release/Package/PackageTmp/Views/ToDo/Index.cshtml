@@ -39,13 +39,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Description", "Index", new { sortOrder = ViewBag.DescriptionSortParam, currentFilter=ViewBag.CurrentFilter })
+            @Html.ActionLink("Description", "Index", new { sortDescOrder = ViewBag.DescriptionSortParam, currentFilter=ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Done", "Index", new { sortOrder = ViewBag.IsDoneSortParam, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Done", "Index", new { sortDoneOrder = ViewBag.IsDoneSortParam, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Tag", "Index", new { sortOrder = ViewBag.TagSortParam, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Tag", "Index", new { sortTagOrder = ViewBag.TagSortParam, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -91,8 +91,7 @@
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
-new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-
+new { page, sortDescOrder = ViewBag.CurrentDescSort, sortDoneOrder = ViewBag.CurrentDoneSort, sortTagOrder = ViewBag.CurrentTagSort, currentFilter = ViewBag.CurrentFilter }))
 
 
 <script>
