@@ -115,10 +115,16 @@ Test with --> username: *fake@fake.com*, password: *P_assw0rd1*
 * Setting up the Environment
   * This project was developed in VS 2015 (Community) using the LocalDB for local development.
   * While developing this project, it was learned that LocalDB is not always installed with VS 2015. Be sure to install any database updates!
+    * Update -> "Microsoft SQL Server Update for Database Tooling"
 * Open the Solution file in VS
   * Build the solution and make sure all the dependencies are loaded properly
+    * VS will prepare the solution for use
+	* Navigate to `Debug > Start without Debugging`
+	* VS will build the project (make sure it succeeds!)
+	* VS should ask about SSL. This project was in fact developed to use SSL. Choose yes to trust the self-signed certificate.
+	* A security warning will ask if you are sure you want to install, choose yes.
 * Check it out
-  * Debug > Start without Debugging and VS will open in your default browser. As the database will be created, it may take a few seconds to load up.
+  * VS will open the site in your default browser. As the database needs to be created, it may take a few seconds to load up.
 
 
 ### Unsolved Problems:
