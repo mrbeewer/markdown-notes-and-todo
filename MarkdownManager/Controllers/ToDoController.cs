@@ -34,13 +34,15 @@ namespace MarkdownManager.Controllers
 
 
         // GET: ToDo
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult Index(string sortTagOrder, string sortDescOrder, string sortDoneOrder, string currentFilter, string searchString, int? page)
         {
             // Sort Order Criteria
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.DescriptionSortParam = String.IsNullOrEmpty(sortOrder) ? "description_desc" : "";
-            ViewBag.IsDoneSortParam = String.IsNullOrEmpty(sortOrder) ? "isDone_asc" : "";
-            ViewBag.TagSortParam = String.IsNullOrEmpty(sortOrder) ? "tag_asc" : "";
+            ViewBag.CurrentDescSort = sortDescOrder;
+            ViewBag.CurrentDoneSort = sortDoneOrder;
+            ViewBag.CurrentTagSort = sortTagOrder;
+            ViewBag.DescriptionSortParam = sortDescOrder == "description_asc" ? "description_desc" : "description_asc";
+            ViewBag.IsDoneSortParam = sortDoneOrder == "isDone_asc" ? "isDone_desc" : "isDone_asc";
+            ViewBag.TagSortParam = sortTagOrder == "tag_asc" ? "tag_desc" : "tag_asc";
 
             // Pagination and persistent filtering
             if (searchString != null)
@@ -57,6 +59,9 @@ namespace MarkdownManager.Controllers
             var todoes = from t in db.ToDoes select t;
             string currentUser = User.Identity.GetUserId();
 
+            todoes = todoes.Where(todo => todo.ApplicationUserID == currentUser);
+            todoes = todoes.Where(todo => todo.ApplicationUserID == currentUser).OrderBy(t => t.Tag);
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 todoes = todoes.Where(todo => todo.ApplicationUserID == currentUser);
@@ -64,21 +69,39 @@ namespace MarkdownManager.Controllers
             }
 
             // Order the ToDos as specified
-            switch (sortOrder)
+            switch (sortDescOrder)
             {
                 case "description_desc":
                     todoes = todoes.Where(todo => todo.ApplicationUserID == currentUser).OrderByDescending(t => t.Description);
                     break;
+                case "description_asc":
+                    todoes = todoes.Where(todo => todo.ApplicationUserID == currentUser).OrderBy(t => t.Description);
+                    break;
+
+            }
+
+            switch(sortDoneOrder)
+            {
+                case "isDone_desc":
+                    todoes = todoes.Where(todo => todo.ApplicationUserID == currentUser).OrderByDescending(t => t.IsDone ? 0 : 1);
+                    break;
                 case "isDone_asc":
                     todoes = todoes.Where(todo => todo.ApplicationUserID == currentUser).OrderBy(t => t.IsDone ? 0 : 1);
+                    break;
+
+            }
+                
+            switch(sortTagOrder)
+            {
+                case "tag_desc":
+                    todoes = todoes.Where(todo => todo.ApplicationUserID == currentUser).OrderByDescending(t => t.Tag);
                     break;
                 case "tag_asc":
                     todoes = todoes.Where(todo => todo.ApplicationUserID == currentUser).OrderBy(t => t.Tag);
                     break;
-                default:
-                    todoes = todoes.Where(todo => todo.ApplicationUserID == currentUser).OrderByDescending(t => t.IsDone ? 0 : 1);
-                    break;
             }
+                
+        
 
             // Pagination settings and render the view
             int pageSize = 5;

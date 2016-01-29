@@ -57,6 +57,11 @@
                 // clear the boxes out
                 $('#todoTag').val("");
                 $('#todoDesc').val("");
+                // If on the ToDo path, refresh page
+                var pathname = window.location.pathname;
+                if (pathname.toLocaleLowerCase() == "/todo") {
+                    $('#searchStringBtn').click();
+                }
             },
             error: function (err) {
                 console.log("submit error");
@@ -65,6 +70,9 @@
     });
 </script>
 
+
 @section Scripts {
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
 }

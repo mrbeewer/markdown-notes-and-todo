@@ -2,36 +2,30 @@
     ViewBag.Title = "About";
 }
 
-<h1>Markdown Notes &amp; Todo</h1>
-<p>Web based markdown editor focused on note taking and tracking ToDo’s</p>
+<h1>Markdown Manager</h1>
 <p>
-    <br><br />
-    <br>
+    Markdown Manager is a web based markdown editor with a focus on management through notes and todos.<br />
+    <em>Markdown Conversion Powered By <a href="https://github.com/jonschlinkert/remarkable">Jon Schlinkert - Remarkable</a></em><br />
+    <em>Syntax Highlighting Powered By <a href="https://highlightjs.org/">Highlight.js</a></em>
 </p>
-<h3>Screenshots:</h3>
-
+<p>
+    <a href="http://markdownmanager.azurewebsites.net/">Live Demo</a><br />
+    Test with --&gt; username: <em><a href="mailto:fake@fake.com">fake@fake.com</a></em>, password: <em>P_assw0rd1</em>
+</p>
 <p align="center">
-    <img width="400" src="~/Images/UMLMarkdownManager.png" alt="Planning" />
-    <br>
-    <!-- <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-secondaryRefinementWChoices.png" alt="moogl - Secondary Refinement With Choices View"/>
-    <br>
-    <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-mapWPins.png"  alt="moogl - Map With Pins / Locations View"/>
-    <br>
-    <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-mapWDetails.png"  alt="moogl - Map With Location Detail (small) View"/>
-    <br>
-    <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-LocationDetails.png"  alt="moogl - Location Detail View"/>
-    <br>
-    <img width="400px" src="https://github.com/Beelers-Blockers/moogl/blob/NoBackbone/screenshots/moogl-BurgerDetails.png"  alt="moogl - Burger Detail View"/> -->
-</p>
+    <img width="400px" src="/Images/Logo.png" alt="MarkdownManager Logo" />
+<p>
+
 <h3>Technology:</h3>
 <ul>
     <li>HTML, CSS, JavaScript, jQuery</li>
-    <li>ASP.NET / C# - MVC and RESTful API</li>
+    <li>ASP.NET (C#) + Razor - MVC and RESTful API</li>
+    <li>OAuth - User Authorization</li>
     <li>Microsoft SQL - Database Management</li>
-    <li>OAuth- User Authentication and Sessions</li>
-    <li>JSON - API Dealing</li>
     <li>Bootstrap - CSS Framework</li>
+    <li>GIMP - Logo</li>
     <li><a href="http://www.bootstraptoggle.com/">Bootstrap Toggle</a></li>
+    <li><a href="https://github.com/mdo/github-buttons">GitHub Buttons by MDO</a></li>
     <li><a href="http://draw.io">Draw.io</a> - Wireframes and ERD</li>
     <li><a href="https://trello.com">Trello</a> - SCRUM Board</li>
 </ul>
@@ -46,7 +40,7 @@
         </ul>
     </li>
     <li><a href="https://trello.com/b/rvAVYeyS">SCRUM Board</a></li>
-    <li>Live App - <a href="http://markdownmanager.azurewebsites.net/">SOON</a></li>
+    <li>Live App - <a href="http://markdownmanager.azurewebsites.net/">Markdown Manager</a></li>
 </ul>
 <h3>Approach:</h3>
 <ul>
@@ -99,31 +93,159 @@
             </li>
             <li>Before working together the models and controllers, focus was turned to defining a preliminary database structure to achieve the desired result.</li>
             <li>
-                ToDo Module: Due to simplicity and similarity to available tutorials / guides, the ToDo portion was tackled first. Configuring the relational<br />
-                piece of the tables proved to difficult, with out-dated tutorials and inconsistent information. Once the ToDo items were tied to their user, some<br />
-                bonus features such as pagination, filtering, sorting were added.
+                ToDo Module:
+                <ul>
+                    <li>
+                        Due to simplicity and similarity to available tutorials / guides, the ToDo portion was tackled first. Configuring the relational<br />
+                        piece of the tables proved to difficult, with out-dated tutorials and inconsistent information. Once the ToDo items were tied to their user, some<br />
+                        bonus features such as pagination, filtering, sorting were added.
+                    </li>
+                </ul>
             </li>
             <li>
-                Notes Module: Creating the Notes Module was largely an exercise in replicating the CRUD of ToDo and adding the Markdown Conversion functionality.<br />
-                Although the Markdown conversion works well, it took time to fully integrate and adjust overlapping CSS for an appropriate appearance.<br />
-                Another learned lesson on this portion was dealing with data validation. As the converter will allow HTML tags, the validation routine was catching<br />
-                the tags and reporting unsafe conditions (and potential of allowing hack-scripts). In this case, the tags are desired and after a lot of investigation,<br />
-                adding <code>[AllowHtml]</code> to the Document Model provided correct validation. Although there are methods to counter the validation through the controller,<br />
-                that could introduce security holes into the application.
+                Notes Module:
+                <ul>
+                    <li>
+                        Creating the Notes Module was largely an exercise in replicating the CRUD of ToDo and adding the Markdown Conversion functionality.<br />
+                        Although the Markdown conversion works well, it took time to fully integrate and adjust overlapping CSS for an appropriate appearance.<br />
+                        Another learned lesson on this portion was dealing with data validation. As the converter will allow HTML tags, the validation routine was catching<br />
+                        the tags and reporting unsafe conditions (and potential of allowing hack-scripts). In this case, the tags are desired and after a lot of investigation,<br />
+                        adding <code>[AllowHtml]</code> to the Document Model provided correct validation. Although there are methods to counter the validation through the controller,<br />
+                        that could introduce security holes into the application.
+                    </li>
+                </ul>
             </li>
             <li>
                 As I always focus on functionality programming, little has been done on the overall look of the page. Thankfully the default project with Visual<br />
                 Studio uses Bootstrap and a minimal appearance that I can build from.
             </li>
+            <li>
+                JSFiddle Form:
+                <ul>
+                    <li>
+                        Although not quite as ‘cool’ as an embedded sandbox, a form (opened through more toggle switches!) can be accessed allowing the user<br />
+                        to enter HTML/CSS/JS and open a JSFiddle with the code ready. The idea is that a user could copy code from their notes and get a JSFiddle ready without<br />
+                        switching between pages multiple times. The user can also place the link for the JSFiddle along the code block for later viewing / testing / editing.
+                    </li>
+                    <li>
+                        A couple of pieces needed to be tackled for the form that were new. The first was having the form slide in with a z-index ‘above’ the page. Although<br />
+                        the form could have been implemented like the ‘easy add’ ToDo, I didn’t want to push the containers farther down and require the user to scroll up/down<br />
+                        to copy the code from their notes and paste them into the form.
+                    </li>
+                    <li>
+                        The next piece was successfully posting the information to JSFiddle. The original attempt of using an AJAX call was unsuccessful (potentially a header<br />
+                        issue? Needs further investigation) however, the documentation included an example that used the form post method which worked appropriately.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                With (theoretically) the last toggle added to the markdown header, focused switched to styling and responsive management. Although this application’s deployment<br />
+                has been focused for desktop use, it could still be efficiently used on a tablet sized device. As such, the Bootstrap grid system was used to keep input boxes<br />
+                and toggles from stacking up. Working with multiple CSS files has shown me that projects may require a stronger focus on consolidation.
+            </li>
+            <li>While working with CSS and JSFiddle, some time was spent creating a sample logo using GIMP.</li>
+            <li>
+                Modal Support:
+                <ul>
+                    <li>
+                        With the success of implementing partials and testing the application during class, it was noticed that there were some annoying routing when creating and<br />
+                        editing a note. With original routing, one would navigate to the 'Notes’, click ‘New Note’ which would bring the user to a create page housing the markdown<br />
+                        containers. However, if the user would then ‘save’ the note, they would be redirected back to the note list view. Similar routing occured when editting the<br />
+                        document. These redirects are annoying if the user just wanted to save their work. As such, a modal to display text boxes for the new note name and parent<br />
+                        folder and then redirect the user to the edit view was implemented. Within the edit view, instead of redirecting to the list view, a ‘saved’ message is returned<br />
+                        and the user is able to continue working on their note.
+                    </li>
+                    <li>A Html.BeginForm helper for deletion was also added as directing the user to a delete view seemed unnecessary.</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        Final Thoughts
+        <ul>
+            <li>
+                As this project was developed, it soon became an exercise in integrating and implementing snippets, widgets, etc that have been previously developed. Due to the<br />
+                timeframe, this was certainly necessary, but it is also beneficial to learn to incorporate work that has been performed rather than always starting from scratch. As<br />
+                a person that loves solving problems, this is of interest because problems become more interesting with more moving parts. However, it is hard to feel that one has<br />
+                <em>done</em> much when <em>just</em> putting parts together. At that point, I remind myself that car manufacturers are combining the work of external suppliers to make that car.
+            </li>
+            <li>
+                Learning and using ASP.NET (C#) for this project over the course of two weeks was a challenge, especially with the not always helpful resources (largely due to being<br />
+                out of date). My previous familiarity with  VB / VB.NET was certainly a benefit regarding the learning curve.
+            </li>
+            <li>
+                Things I would have done differently: Now that I better understand the built-in authentication and session management, I would structure the Models a little differently.<br />
+                As they currently exist, the ‘MyUser’ model which was intended to store user preferences is unused and not needed. With a better understanding of using partials, I also<br />
+                believe I could improve the efficiency and streamline navigation and routing better.
+            </li>
+        </ul>
+    </li>
+</ul>
+<h3>Installation:</h3>
+<p><strong>Install on your local system</strong></p>
+<ul>
+    <li>
+        <em>Git</em> the files
+        <ul>
+            <li>Fork the repository and <code>git clone</code> to your local system</li>
+        </ul>
+    </li>
+    <li>
+        Setting up the Environment
+        <ul>
+            <li>This project was developed in VS 2015 (Community) using the LocalDB for local development.</li>
+            <li>While developing this project, it was learned that LocalDB is not always installed with VS 2015. Be sure to install any database updates!</li>
+        </ul>
+    </li>
+    <li>
+        Open the Solution file in VS
+        <ul>
+            <li>Build the solution and make sure all the dependencies are loaded properly</li>
+        </ul>
+    </li>
+    <li>
+        Check it out
+        <ul>
+            <li>Debug &gt; Start without Debugging and VS will open in your default browser. As the database will be created, it may take a few seconds to load up.</li>
         </ul>
     </li>
 </ul>
 <h3>Unsolved Problems:</h3>
 <ul>
-    <li>SOON</li>
+    <li>
+        <strong>Embedded Code Sandbox</strong> - During the planning and design stage, a user story was connected to the ability to run<br />
+        / test code while within the application. As there are a number of these sandboxes on the web, it was thought that<br />
+        one should allow for embedding (and still allow editing / testing). In terms of a free source that could be integrated<br />
+        within the timeline, nothing was found to fit the need. As such, the ability to put code from notes into a form to post<br />
+        to JSFiddle was added. This is not the best solution, but may prove to be handy.
+    </li>
+    <li>
+        Connected to the above, was unable to make a standard AJAX call to post the code to JSFiddle, may require additional<br />
+        specifiers. However, an <a href="http://jsfiddle.net/zalun/sthmj/embedded/result/">example</a> was found using a form post to send<br />
+        the information. This method works just as well.
+    </li>
+    <li>Would like to replace the ‘confirm’ alerts with something prettier than the browser defaults.</li>
 </ul>
 <h3>Change Log:</h3>
 <ul>
+    <li>
+        28JAN2016
+        <ul>
+            <li>Added a modal to manage note creation / editing more smoothly</li>
+            <li>Html.BeginForm helper used for deletion instead of redirecting to a ‘delete’ view</li>
+            <li>‘Details’ route/view is not currently being used, it currently is unnecessary</li>
+            <li>Code cleaning, commenting</li>
+            <li>Readme updates</li>
+        </ul>
+    </li>
+    <li>
+        26JAN2016
+        <ul>
+            <li>CRUD funtionality has been working successfully</li>
+            <li>Added toggle button to post code to JSFiddle (to test/run)</li>
+            <li>Improved responsive design, specifically the toggle buttons as the screen width decreases.</li>
+        </ul>
+    </li>
     <li>
         24JAN2016
         <ul>
@@ -160,4 +282,3 @@
         </ul>
     </li>
 </ul>
-

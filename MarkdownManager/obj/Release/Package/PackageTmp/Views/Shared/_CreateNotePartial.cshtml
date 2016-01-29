@@ -1,41 +1,13 @@
 ﻿@model MarkdownManager.Models.Document
 
-@{
-    var message = ViewData["message"];
-}
-@{
-    ViewBag.Title = "Edit";
-
-}
-
-<!-- Necessary Scripts, CSS Links for Markdown Converter -->
-@Html.Partial("_MarkdownScriptsLinksPartial")
-
-<!-- jquery ui script for -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
-
-<!-- Header with Title -->
-@Html.Partial("_HeaderWTogglesPartial", new ViewDataDictionary { { "title", "Edit Note" }, { "message", @message } })
-
-<!-- A toggle-able ToDo Easy Add -->
-<div id="todo-partial" style="margin: 0 0 15px 0;">
-    @Html.Partial("_AddToDoPartial", new MarkdownManager.Models.ToDo())
-</div>
-
-<!-- A toggle-able JSFiddle POST -->
-<div id="toggle">
-    @Html.Partial("_SendToJSFiddlePartial")
-</div>
-
-<!-- Form Control (CRUD - Edit) -->
-@using (Html.BeginForm())
+<!-- Form Control (CRUD - Create) -->
+@using (Html.BeginForm("Create", "Document"))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal" style="margin: 20px 0 0 0;">
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
 
         <div class="container" style="padding: 0; margin-bottom:10px;">
             <div class="text-center no-gutter">
@@ -48,19 +20,19 @@
                     @Html.ValidationMessageFor(model => model.ParentFolder, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-xs-3 col-md-2">
-                    <input type="submit" value="Save Note" class="btn btn-default" style="width: 100%;" />
+                    <input type="submit" value="Create" class="btn btn-primary" style="width: 100%;" />
                 </div>
+
+                <div id="markdown-input" class="" style="display:none;">
+                    @Html.TextArea(" ", new { @id = "markdown-text", @class = "source full-height form-control" })
+                </div>
+
             </div>
         </div>
-
-        <!-- Markdown Input / Output Containers using Models -->
-        @Html.Partial("_MarkdownContainersWModel")
 
     </div>
 }
 
-
-<script src="~/Scripts/MarkdownToggleShowHide.js"></script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")

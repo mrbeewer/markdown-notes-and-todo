@@ -298,6 +298,10 @@
     <Compile Include="Migrations\201601241912288_AddDocument.Designer.cs">
       <DependentUpon>201601241912288_AddDocument.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601290027199_RemoveContacts.cs" />
+    <Compile Include="Migrations\201601290027199_RemoveContacts.Designer.cs">
+      <DependentUpon>201601290027199_RemoveContacts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Document.cs" />
@@ -435,11 +439,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Cm\Create.cshtml" />
-    <Content Include="Views\Cm\Delete.cshtml" />
-    <Content Include="Views\Cm\Details.cshtml" />
-    <Content Include="Views\Cm\Edit.cshtml" />
-    <Content Include="Views\Cm\Index.cshtml" />
     <Content Include="Views\ToDo\Create.cshtml" />
     <Content Include="Views\ToDo\Delete.cshtml" />
     <Content Include="Views\ToDo\Details.cshtml" />
@@ -487,6 +486,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601241912288_AddDocument.resx">
       <DependentUpon>201601241912288_AddDocument.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601290027199_RemoveContacts.resx">
+      <DependentUpon>201601290027199_RemoveContacts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -3,16 +3,35 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 
-@{
-    ViewBag.Title = "Notes:";
-}
-
 <h2>Notes:</h2>
 
+<!-- Create New Note -->
 <p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Create New Note
+    </button>
 </p>
 
+<!-- Create Note Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Create New Note</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("_CreateNotePartial", new MarkdownManager.Models.Document())
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Searching Criteria -->
 @using (Html.BeginForm("Index", "Document", FormMethod.Get))
 {
     <div class="container" style="padding: 0;">
@@ -46,9 +65,15 @@
             @Html.DisplayFor(modelItem => item.ParentFolder)
         </td>
         <td>
-            @Html.ActionLink("Edit / View", "Edit", new { id=item.Id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-danger" })
+            <div class="col-xs-12">
+            @Html.ActionLink("Edit / View", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+            @*@Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })*@
+            @using (Html.BeginForm("Delete", "Document", new { id = item.Id }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure?')" />
+            }
+            </div>
         </td>
     </tr>
 }

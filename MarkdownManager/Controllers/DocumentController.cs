@@ -17,12 +17,13 @@ namespace MarkdownManager.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Document
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult Index(string sortParentFolderOrder, string sortNameOrder, string currentFilter, string searchString, int? page)
         {
             // Sorting Criteria
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.ParentFolderSortParam = String.IsNullOrEmpty(sortOrder) ? "parentfolder_desc" : "";
+            ViewBag.CurrentNameSort = sortNameOrder;
+            ViewBag.CurrentParentFolderSort = sortParentFolderOrder;
+            ViewBag.NameSortParam = sortNameOrder == "name_asc" ? "name_desc" : "name_asc";
+            ViewBag.ParentFolderSortParam = sortParentFolderOrder == "parentfolder_asc" ? "parentfolder_desc" : "parentfolder_asc";
 
             // Pagination and persistent filtering
             if (searchString != null)
@@ -39,6 +40,9 @@ namespace MarkdownManager.Controllers
             var documents = from d in db.Documents select d;
             string currentUser = User.Identity.GetUserId();
 
+            documents = documents.Where(doc => doc.ApplicationUserID == currentUser);
+            documents = documents.Where(doc => doc.ApplicationUserID == currentUser).OrderBy(d => d.ParentFolder);
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 documents = documents.Where(doc => doc.ApplicationUserID == currentUser);
@@ -46,15 +50,22 @@ namespace MarkdownManager.Controllers
             }
 
             // Order the found documents as specified
-            switch (sortOrder)
+            switch (sortNameOrder)
             {
                 case "name_desc":
                     documents = documents.Where(doc => doc.ApplicationUserID == currentUser).OrderByDescending(d => d.Name);
                     break;
+                case "name_asc":
+                    documents = documents.Where(doc => doc.ApplicationUserID == currentUser).OrderBy(d => d.Name);
+                    break;
+            }
+
+            switch (sortParentFolderOrder)
+            {
                 case "parentfolder_desc":
                     documents = documents.Where(doc => doc.ApplicationUserID == currentUser).OrderByDescending(d => d.ParentFolder);
                     break;
-                default:
+                case "parentfolder_asc":
                     documents = documents.Where(doc => doc.ApplicationUserID == currentUser).OrderBy(d => d.ParentFolder);
                     break;
             }

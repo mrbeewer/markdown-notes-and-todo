@@ -30,6 +30,10 @@ textarea {
     width: auto !important;
 }
 
+[class*='col-'] > form {
+    display: inline !important;
+}
+
 .no-gutter > [class*='col-'] {
     padding-right: 2px;
     padding-left: 2px;
@@ -68,7 +72,7 @@ div.fiddle-partial-textarea > textarea{
       position:absolute;
       width:40%;
       height:460px;
-      top: 900px;
+      top: 1060px;
       left: 50%;
       z-index: 1;
       background-color: #fbfbfb;
@@ -76,3 +80,36 @@ div.fiddle-partial-textarea > textarea{
       border-radius: 4px;
       display: none;
   }
+
+#Google {
+    background-color: transparent;
+    border: none;
+}
+
+
+/* Auto Hide of Save Message*/
+#hideMe {
+    -moz-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+@keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+@-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
+}

@@ -1,11 +1,13 @@
 ﻿@{
     var title = (string)ViewData["title"];
+    var message = (string)ViewData["message"];
 }
 
 <div class="row no-gutter">
     <div class="col-xs-12 col-md-4">
-        <h2>@title</h2>
+        <h2>@title: <p id="hideMe" style="display:inline; color:deeppink;">@message</p> </h2>
         <h6><em>Markdown Conversion Powered By <a href="https://github.com/jonschlinkert/remarkable">Jon Schlinkert - Remarkable</a></em></h6>
+        <h6><em>Syntax Highlighting Powered By <a href="https://highlightjs.org/">Highlight.js</a></em></h6>
     </div>
     <div class="col-xs-12 col-md-8 text-right" style="padding-top: 30px;">
         @Html.ActionLink("Back to List", "Index", null, new { @style = "margin-right:10px;", @class = "btn btn-default" })

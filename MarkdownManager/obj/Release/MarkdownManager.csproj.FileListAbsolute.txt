@@ -232,3 +232,4 @@ C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\obj\Re
 C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\obj\Release\MarkdownManager.Migrations.AddDocument.resources
 C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\bin\dotless.Core.dll
 C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\bin\dotless.Core.pdb
+C:\Users\davidbeeler\Source\Repos\markdown-notes-and-todo\MarkdownManager\obj\Release\MarkdownManager.Migrations.RemoveContacts.resources
