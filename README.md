@@ -7,7 +7,7 @@ Markdown Manager is a web based markdown editor with a focus on management throu
 Test with --> username: *fake@fake.com*, password: *P_assw0rd1*
 <p align="center">
   <img width="400px" src="https://github.com/mrbeewer/markdown-notes-and-todo/blob/master/MarkdownManager/Images/Logo.png" alt="MarkdownManager Logo"/>
-<p>
+</p>
 
 
 ### Screenshots:
