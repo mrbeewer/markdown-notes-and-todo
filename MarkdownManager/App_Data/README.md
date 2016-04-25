@@ -5,6 +5,7 @@ Markdown Manager is a web based markdown editor with a focus on management throu
 
 [Live Demo](http://markdownmanager.azurewebsites.net/)
 Test with --> username: *fake@fake.com*, password: *P_assw0rd1*
+Note: Some company networks will not allow the login process to function properly.
 <p align="center">
   <img width="400px" src="/Images/Logo.png" alt="MarkdownManager Logo"/>
 <p>
@@ -136,6 +137,8 @@ the information. This method works just as well.
 
 
 ### Change Log:
+  * 25APR2016
+	* Added a note to the login page regarding company network interference. Have not yet been able to properly debug this.
   * 28JAN2016
 	* Added a modal to manage note creation / editing more smoothly
 	* @Html.BeginForm helper used for deletion instead of redirecting to a 'delete' view
